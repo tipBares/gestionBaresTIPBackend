@@ -1,5 +1,12 @@
 package com.tip.gestionBares.service;
 
-public class MesaService {
+import java.util.ArrayList;
 
+import com.tip.gestionBares.dto.MesaDto;
+
+public interface MesaService {
+	
+	public MesaDto create(MesaDto mesaDto);
+	
+	public ArrayList<MesaDto> getMesas();
 }
