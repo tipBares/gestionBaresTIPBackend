@@ -1,19 +1,16 @@
 package com.tip.gestionBares.repositories;
 
-<<<<<<< Updated upstream
 import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
-
-import com.tip.gestionBares.model.Mesa;
-import com.tip.gestionBares.model.Producto;
-
-public interface ProductoRepository extends CrudRepository<Producto, UUID>{
-=======
 import org.springframework.stereotype.Repository;
 
+import com.tip.gestionBares.model.Producto;
 @Repository
-public class ProductoRepository {
->>>>>>> Stashed changes
+public interface ProductoRepository extends CrudRepository<Producto, UUID>{
+
+
+
+
 
 }

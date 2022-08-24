@@ -17,16 +17,16 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@Column
+	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column
+	@Column(name = "precio")
 	private Double precio;
 	
-	@Column
+	@Column(name = "categoria")
 	private String categoria;
 	
-	@Column
+	@Column(name = "descripcion")
 	private String descripcion;
 
 	public Producto(String nombre, Double precio, String categoria, String descripcion) {

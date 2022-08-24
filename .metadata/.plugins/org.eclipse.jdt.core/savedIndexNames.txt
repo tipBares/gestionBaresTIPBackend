@@ -67,6 +67,7 @@ INDEX VERSION 1.131+C:\Users\Tomas\Desktop\TIP\gestionBaresTIPBackend\.metadata\
 4108134207.index
 3203825361.index
 396923672.index
+4139952660.index
 2848734484.index
 3916286542.index
 2632268966.index
