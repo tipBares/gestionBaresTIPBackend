@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import javax.persistence.ForeignKey;
 
 @Entity(name="Mesa")
 @Table(name="mesa")
@@ -17,13 +21,14 @@ public class Mesa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@Column
+	@Column(name = "abierta")
 	private Boolean abierta;
 	
-	//@Column
-	//private Ticket ticket;
+	@OneToOne
+	@JoinColumn(name = "ticket_id", foreignKey=@ForeignKey(name="mesa_id_fk"))
+	private Ticket ticket;
 	
-	@Column
+	@Column(name = "nro_mesa")
 	private Integer nroMesa;
 
 	public Mesa() {
