@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name="Prodcuto")
+@Entity(name="Producto")
 @Table(name="producto")
 public class Producto {
 
