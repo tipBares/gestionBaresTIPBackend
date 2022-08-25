@@ -11,22 +11,20 @@ public class MesaDto {
 	
 	private Boolean abierta;
 	
-	//private Ticket ticket;
+	private Ticket ticket;
 	
 	private Integer nroMesa;
 
-	public MesaDto(Boolean abierta, 
-			//Ticket ticket, 
-			Integer nroMesa) {
+	public MesaDto(Boolean abierta, Ticket ticket, Integer nroMesa) {
 		super();
 		this.abierta = abierta;
-		//this.ticket = ticket;
+		this.ticket = ticket;
 		this.nroMesa = nroMesa;
 	}
 
 	public MesaDto(Mesa mesa) {
 		this(mesa.getAbierta(),
-			 //mesa.getTicket(),
+			 mesa.getTicket(),
 			 mesa.getNroMesa());
 		this.id = mesa.getId();
 	}
@@ -47,13 +45,13 @@ public class MesaDto {
 		this.abierta = abierta;
 	}
 
-//	public Ticket getTicket() {
-//		return ticket;
-//	}
-//
-//	public void setTicket(Ticket ticket) {
-//		this.ticket = ticket;
-//	}
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
 
 	public Integer getNroMesa() {
 		return nroMesa;
