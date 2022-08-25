@@ -1,5 +1,8 @@
 package com.tip.gestionBares.service;
 
-public class ProductoService {
+import com.tip.gestionBares.dto.ProductoDto;
 
+public interface ProductoService {
+
+	public ProductoDto create(ProductoDto productoDto);
 }
