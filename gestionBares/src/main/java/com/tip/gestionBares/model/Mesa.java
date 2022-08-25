@@ -25,7 +25,7 @@ public class Mesa {
 	private Boolean abierta;
 	
 	@OneToOne
-	@JoinColumn(name = "ticket_id", foreignKey=@ForeignKey(name="mesa_id_fk"))
+	@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
 	private Ticket ticket;
 	
 	@Column(name = "nro_mesa")
@@ -35,12 +35,10 @@ public class Mesa {
 		super();
 	}
 
-	public Mesa(Boolean abierta, 
-			//Ticket ticket, 
-			Integer nroMesa) {
+	public Mesa(Boolean abierta, Ticket ticket, Integer nroMesa) {
 		super();
 		this.abierta = abierta;
-		//this.ticket = ticket;
+		this.ticket = ticket;
 		this.nroMesa = nroMesa;
 	}
 
@@ -62,13 +60,13 @@ public class Mesa {
 		this.abierta = abierta;
 	}
 
-//	public Ticket getTicket() {
-//		return ticket;
-//	}
+	public Ticket getTicket() {
+		return ticket;
+	}
 
-//	public void setTicket(Ticket ticket) {
-//		this.ticket = ticket;
-//	}
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
 
 	public Integer getNroMesa() {
 		return nroMesa;

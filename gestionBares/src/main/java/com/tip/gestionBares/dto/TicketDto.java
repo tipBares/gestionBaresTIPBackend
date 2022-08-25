@@ -1,5 +1,129 @@
 package com.tip.gestionBares.dto;
 
-public class TicketDto {
+import java.time.LocalDate;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import com.tip.gestionBares.model.Mesa;
+import com.tip.gestionBares.model.Mozo;
+import com.tip.gestionBares.model.Ticket;
+
+public class TicketDto {
+	private static final AtomicInteger count = new AtomicInteger(1); 
+
+	private UUID id;
+	
+	private Mesa mesa;
+	
+	private Mozo mozo;
+	
+	private LocalDate fecha;
+	
+	private String nombreBar;
+	
+	private String direccionBar;
+	
+	private Integer nroTicket;
+	
+	private Double importeTotal;
+
+	private String metodoDePago;
+
+	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar,
+			Integer nroTicket, Double importeTotal, String metodoDePago) {
+		super();
+		this.mesa = mesa;
+		this.mozo = mozo;
+		this.fecha = fecha;
+		this.nombreBar = nombreBar;
+		this.direccionBar = direccionBar;
+		this.nroTicket = nroTicket;
+		this.importeTotal = importeTotal;
+		this.metodoDePago = metodoDePago;
+	}
+	
+	public TicketDto(Ticket ticket) {
+		this(ticket.getMesa(),
+			 ticket.getMozo(),
+			 ticket.getFecha(),
+			 ticket.getNombreBar(),
+			 ticket.getDireccionBar(),
+			 ticket.getNroTicket(),
+			 ticket.getImporteTotal(),
+			 ticket.getMetodoDePago());
+			this.id = ticket.getId();
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
+
+	public Mozo getMozo() {
+		return mozo;
+	}
+
+	public void setMozo(Mozo mozo) {
+		this.mozo = mozo;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getNombreBar() {
+		return nombreBar;
+	}
+
+	public void setNombreBar(String nombreBar) {
+		this.nombreBar = nombreBar;
+	}
+
+	public String getDireccionBar() {
+		return direccionBar;
+	}
+
+	public void setDireccionBar(String direccionBar) {
+		this.direccionBar = direccionBar;
+	}
+
+	public Integer getNroTicket() {
+		return nroTicket;
+	}
+
+	public void setNroTicket(Integer nroTicket) {
+		this.nroTicket = nroTicket;
+	}
+
+	public Double getImporteTotal() {
+		return importeTotal;
+	}
+
+	public void setImporteTotal(Double importeTotal) {
+		this.importeTotal = importeTotal;
+	}
+
+	public String getMetodoDePago() {
+		return metodoDePago;
+	}
+
+	public void setMetodoDePago(String metodoDePago) {
+		this.metodoDePago = metodoDePago;
+	}
+	
 }
