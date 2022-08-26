@@ -1,6 +1,7 @@
 package com.tip.gestionBares.service;
 
 import java.util.List;
+
 import com.tip.gestionBares.dto.ProductoDto;
 
 public interface ProductoService {
@@ -8,4 +9,5 @@ public interface ProductoService {
 
 	public List<ProductoDto> finByName(String nombreProducto);
 
+	public ProductoDto update(ProductoDto productoDto, Long id);
 }

@@ -39,4 +39,17 @@ public class ProductoServiceImplem implements ProductoService {
 		}
 		return resultado;
 	}
+
+	@Override
+	public ProductoDto update(ProductoDto productoDto, Long id) {
+		Producto producto = this.productoRepository.findById(id).orElse(null);
+		producto.setCategoria(productoDto.getCategoria());
+		producto.setDescripcion(productoDto.getDescripcion());
+		producto.setNombre(productoDto.getNombre());
+		producto.setPrecio(productoDto.getPrecio());
+		this.productoRepository.save(producto);
+		return new ProductoDto(producto);
+	}
+	
+	
 }
