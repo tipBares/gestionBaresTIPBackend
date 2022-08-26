@@ -1,13 +1,11 @@
 package com.tip.gestionBares.dto;
 
-import java.util.UUID;
-
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Ticket;
 
 public class MesaDto {
 	
-	private UUID id;
+	private Long id;
 	
 	private Boolean abierta;
 	
@@ -29,11 +27,11 @@ public class MesaDto {
 		this.id = mesa.getId();
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

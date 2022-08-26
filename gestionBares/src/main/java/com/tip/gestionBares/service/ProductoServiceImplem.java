@@ -31,6 +31,7 @@ public class ProductoServiceImplem implements ProductoService {
 	}
 
 	@Override
+
 	public List<ProductoDto> finByName(String nombreProducto) {
 		List<ProductoDto> resultado = new ArrayList<ProductoDto>();
 		List<Producto> productos = this.productoRepository.findByNombre(nombreProducto);
@@ -52,4 +53,42 @@ public class ProductoServiceImplem implements ProductoService {
 	}
 	
 	
+
+	public List<ProductoDto> findByCategory(String categoria){
+		List<Producto> productos = this.productoRepository.findByCategoria(categoria);
+		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
+		if(productos != null) {
+			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
+		}
+		
+		return productosDto;
+	}
+
+	@Override
+	public List<ProductoDto> findByAll() {
+		List<Producto> productos = (List<Producto>) this.productoRepository.findAll();
+		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
+		
+		if(productos != null) {
+			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
+		}
+		
+		return productosDto;
+	}
+
+	@Override
+	public List<ProductoDto> delete(Long id) {
+		List<Producto> productos = (List<Producto>) this.productoRepository.findAll();
+		Producto producto = productos.stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
+		productos.removeIf(c -> c.getId().equals(id));
+		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
+		if(productos != null) {
+			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
+		}
+		this.productoRepository.delete(producto);
+		
+		return productosDto;
+	}
+
+
 }

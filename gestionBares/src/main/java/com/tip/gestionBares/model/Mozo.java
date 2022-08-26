@@ -1,7 +1,5 @@
 package com.tip.gestionBares.model;
 
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +13,7 @@ public class Mozo {
 	//El mozo tiene nombre, apellido y id.
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private Long id;
 	@Column(name = "nombre")
 	private String nombre;
 	@Column(name = "apellido")
@@ -31,11 +29,11 @@ public class Mozo {
 		this.apellido = apellido;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

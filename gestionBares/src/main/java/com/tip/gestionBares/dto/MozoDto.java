@@ -1,11 +1,9 @@
 package com.tip.gestionBares.dto;
 
-import java.util.UUID;
-
 import com.tip.gestionBares.model.Mozo;
 
 public class MozoDto {
-	private UUID id;
+	private Long id;
 	private String nombre;
 	private String apellido;
 	public MozoDto(String nombre, String apellido) {
@@ -18,10 +16,10 @@ public class MozoDto {
 			 mozo.getApellido());
 		this.id = mozo.getId();
 	}
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNombre() {
