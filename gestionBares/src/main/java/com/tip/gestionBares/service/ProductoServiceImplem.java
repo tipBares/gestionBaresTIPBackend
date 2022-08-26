@@ -31,6 +31,29 @@ public class ProductoServiceImplem implements ProductoService {
 	}
 
 	@Override
+
+	public List<ProductoDto> finByName(String nombreProducto) {
+		List<ProductoDto> resultado = new ArrayList<ProductoDto>();
+		List<Producto> productos = this.productoRepository.findByNombre(nombreProducto);
+		for (Producto producto : productos) {
+			resultado.add(new ProductoDto(producto));
+		}
+		return resultado;
+	}
+
+	@Override
+	public ProductoDto update(ProductoDto productoDto, Long id) {
+		Producto producto = this.productoRepository.findById(id).orElse(null);
+		producto.setCategoria(productoDto.getCategoria());
+		producto.setDescripcion(productoDto.getDescripcion());
+		producto.setNombre(productoDto.getNombre());
+		producto.setPrecio(productoDto.getPrecio());
+		this.productoRepository.save(producto);
+		return new ProductoDto(producto);
+	}
+	
+	
+
 	public List<ProductoDto> findByCategory(String categoria){
 		List<Producto> productos = this.productoRepository.findByCategoria(categoria);
 		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
@@ -66,5 +89,6 @@ public class ProductoServiceImplem implements ProductoService {
 		
 		return productosDto;
 	}
+
 
 }

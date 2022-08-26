@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,25 @@ public class ProductoController {
 		return new ResponseEntity<ProductoDto>(productoDto, HttpStatus.CREATED);
 		
 	}
+
+	@GetMapping
+	public ResponseEntity<List<ProductoDto>> findByName(@RequestParam String nombre) throws NotFoundException{
+		List<ProductoDto> productosDto = this.productoService.finByName(nombre);
+		if(productosDto.size() <= 0) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
+	}
+	
+	@PutMapping("{id}")
+	public ResponseEntity<ProductoDto> updateById(@RequestBody ProductoDto producto, @PathVariable("id") Long id) throws NotFoundException {
+		ProductoDto productoDto = this.productoService.update(producto, id);
+		if(productoDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<ProductoDto>(productoDto, HttpStatus.OK);
+	}
+
 	
 	@GetMapping("/productoByCategory")
 	public ResponseEntity<List<ProductoDto>> findBycategory(@RequestParam String categoria) throws NotFoundException{
@@ -63,4 +83,5 @@ public class ProductoController {
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}
 	
+
 }
