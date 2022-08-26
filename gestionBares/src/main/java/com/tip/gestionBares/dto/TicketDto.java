@@ -9,7 +9,6 @@ import com.tip.gestionBares.model.Mozo;
 import com.tip.gestionBares.model.Ticket;
 
 public class TicketDto {
-	private static final AtomicInteger count = new AtomicInteger(1); 
 
 	private UUID id;
 	
