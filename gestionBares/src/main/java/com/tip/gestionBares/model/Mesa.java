@@ -1,9 +1,8 @@
 package com.tip.gestionBares.model;
 
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,15 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import javax.persistence.ForeignKey;
-
 @Entity(name="Mesa")
 @Table(name="mesa")
 public class Mesa {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private Long id;
 	
 	@Column(name = "abierta")
 	private Boolean abierta;
@@ -44,11 +41,11 @@ public class Mesa {
 
 	//Preguntar si es necesario tener definir siempre hasCode y equals
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

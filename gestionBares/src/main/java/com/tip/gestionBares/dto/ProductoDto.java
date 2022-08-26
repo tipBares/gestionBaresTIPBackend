@@ -1,12 +1,10 @@
 package com.tip.gestionBares.dto;
 
-import java.util.UUID;
-
 import com.tip.gestionBares.model.Producto;
 
 public class ProductoDto {
 	
-	private UUID id;
+	private Long id;
 	
 	private String nombre;
 	
@@ -32,11 +30,11 @@ public class ProductoDto {
 		this.id = producto.getId();
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

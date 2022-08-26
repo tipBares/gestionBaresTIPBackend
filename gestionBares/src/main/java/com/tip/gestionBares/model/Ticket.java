@@ -1,7 +1,6 @@
 package com.tip.gestionBares.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.persistence.CascadeType;
@@ -14,15 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity(name="Ticket")
 @Table(name="ticket")
 public class Ticket {
 	private static final AtomicInteger count = new AtomicInteger(1); 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private Long id;
 	@OneToOne(mappedBy="ticket", cascade=CascadeType.ALL)
 	private Mesa mesa;
 	@OneToOne(cascade=CascadeType.ALL)
@@ -58,11 +55,11 @@ public class Ticket {
 		this.metodoDePago = metodoDePago;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
