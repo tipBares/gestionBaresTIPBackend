@@ -1,7 +1,6 @@
 package com.tip.gestionBares.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.tip.gestionBares.model.Mesa;
@@ -11,7 +10,7 @@ import com.tip.gestionBares.model.Ticket;
 public class TicketDto {
 	private static final AtomicInteger count = new AtomicInteger(1); 
 
-	private UUID id;
+	private Long id;
 	
 	private Mesa mesa;
 	
@@ -54,11 +53,11 @@ public class TicketDto {
 			this.id = ticket.getId();
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
