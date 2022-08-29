@@ -42,8 +42,7 @@ public class Ticket {
 		super();
 	}
 
-	public Ticket(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar,
-			Integer nroTicket, Double importeTotal, String metodoDePago) {
+	public Ticket(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
 		this.mozo = mozo;
@@ -51,8 +50,6 @@ public class Ticket {
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.nroTicket = count.incrementAndGet();
-		this.importeTotal = importeTotal;
-		this.metodoDePago = metodoDePago;
 	}
 
 	public Long getId() {

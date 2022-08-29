@@ -1,5 +1,32 @@
 package com.tip.gestionBares.controller;
 
-public class TicketController {
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tip.gestionBares.dto.TicketDto;
+import com.tip.gestionBares.service.TicketService;
+
+@RestController
+@RequestMapping("/ticket")
+public class TicketController {
+	@Autowired
+	TicketService ticketService;
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<List<TicketDto>> delete(@PathVariable(value ="id") Long id) throws NotFoundException{
+		List<TicketDto> ticketsDto = this.ticketService.delete(id);
+		if(ticketsDto.size() <= 0) {
+			throw new NotFoundException();
+		}
+		
+		return new ResponseEntity<List<TicketDto>>(ticketsDto, HttpStatus.OK);
+	}
 }

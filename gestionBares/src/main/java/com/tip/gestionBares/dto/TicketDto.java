@@ -1,7 +1,6 @@
 package com.tip.gestionBares.dto;
 
 import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Mozo;
@@ -27,17 +26,14 @@ public class TicketDto {
 
 	private String metodoDePago;
 
-	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar,
-			Integer nroTicket, Double importeTotal, String metodoDePago) {
+	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
 		this.mozo = mozo;
 		this.fecha = fecha;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
-		this.nroTicket = nroTicket;
-		this.importeTotal = importeTotal;
-		this.metodoDePago = metodoDePago;
+	
 	}
 	
 	public TicketDto(Ticket ticket) {
@@ -45,11 +41,9 @@ public class TicketDto {
 			 ticket.getMozo(),
 			 ticket.getFecha(),
 			 ticket.getNombreBar(),
-			 ticket.getDireccionBar(),
-			 ticket.getNroTicket(),
-			 ticket.getImporteTotal(),
-			 ticket.getMetodoDePago());
+			 ticket.getDireccionBar());
 			this.id = ticket.getId();
+			this.nroTicket = ticket.getNroTicket();
 	}
 
 	public Long getId() {
