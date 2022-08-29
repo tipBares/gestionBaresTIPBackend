@@ -43,7 +43,7 @@ public class Ticket {
 	}
 
 	public Ticket(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar,
-			Integer nroTicket, Double importeTotal, String metodoDePago) {
+					Double importeTotal, String metodoDePago) {
 		super();
 		this.mesa = mesa;
 		this.mozo = mozo;
