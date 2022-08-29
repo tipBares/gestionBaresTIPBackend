@@ -7,7 +7,6 @@ import com.tip.gestionBares.dto.ProductoDto;
 public interface ProductoService {
 	public ProductoDto create(ProductoDto productoDto);
 
-
 	public List<ProductoDto> finByName(String nombreProducto);
 
 	public ProductoDto update(ProductoDto productoDto, Long id);
