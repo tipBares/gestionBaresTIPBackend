@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.model.Ticket;
 import com.tip.gestionBares.repositories.TicketRepository;
@@ -19,7 +18,15 @@ public class TicketServiceImplem implements TicketService{
 	public TicketServiceImplem() {
 		
 	}
-	
+
+	@Override
+	public TicketDto create(TicketDto ticketDto) {
+		Ticket ticket = new Ticket(ticketDto.getMesa(), ticketDto.getMozo(), ticketDto.getFecha(), 
+							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
+							);
+		this.ticketRepository.save(ticket);
+		return new TicketDto(ticket);
+	}
 	@Override
 	public List<TicketDto> delete(Long id) {
 		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
@@ -33,5 +40,5 @@ public class TicketServiceImplem implements TicketService{
 		
 		return ticketsDto;
 	}
-
+	
 }

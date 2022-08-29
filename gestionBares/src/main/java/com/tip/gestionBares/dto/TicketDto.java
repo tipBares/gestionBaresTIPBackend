@@ -26,6 +26,7 @@ public class TicketDto {
 
 	private String metodoDePago;
 
+
 	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
@@ -33,7 +34,7 @@ public class TicketDto {
 		this.fecha = fecha;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
-	
+		
 	}
 	
 	public TicketDto(Ticket ticket) {
