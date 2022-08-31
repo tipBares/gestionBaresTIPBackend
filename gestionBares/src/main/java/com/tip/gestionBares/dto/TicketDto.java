@@ -1,9 +1,13 @@
 package com.tip.gestionBares.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Mozo;
+import com.tip.gestionBares.model.Producto;
 import com.tip.gestionBares.model.Ticket;
 
 public class TicketDto {
@@ -16,6 +20,8 @@ public class TicketDto {
 	
 	private LocalDate fecha;
 	
+	private LocalTime horaFecha;
+	
 	private String nombreBar;
 	
 	private String direccionBar;
@@ -25,26 +31,46 @@ public class TicketDto {
 	private Double importeTotal;
 
 	private String metodoDePago;
+	
+	private List<Producto> productos;
 
 
-	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar) {
+	public TicketDto(Mesa mesa, Mozo mozo, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
 		this.mozo = mozo;
-		this.fecha = fecha;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
-		
+		this.productos = new ArrayList<Producto>();
 	}
 	
 	public TicketDto(Ticket ticket) {
 		this(ticket.getMesa(),
 			 ticket.getMozo(),
-			 ticket.getFecha(),
 			 ticket.getNombreBar(),
 			 ticket.getDireccionBar());
 			this.id = ticket.getId();
 			this.nroTicket = ticket.getNroTicket();
+			this.metodoDePago = ticket.getMetodoDePago();
+			this.fecha = ticket.getFecha();
+			this.horaFecha = ticket.getHoraFecha();
+			this.productos = ticket.getProductos();
+	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public LocalTime getHoraFecha() {
+		return horaFecha;
+	}
+
+	public void setHoraFecha(LocalTime horaFecha) {
+		this.horaFecha = horaFecha;
 	}
 
 	public Long getId() {
