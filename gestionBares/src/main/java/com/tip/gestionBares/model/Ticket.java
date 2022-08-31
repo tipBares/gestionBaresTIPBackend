@@ -37,6 +37,8 @@ public class Ticket {
 	private Double importeTotal;
 	@Column(name = "metodo_de_pago")
 	private String metodoDePago;
+	@Column(name = "descuento")
+	private Integer descuento;
 	
 	public Ticket() {
 		super();
@@ -122,6 +124,14 @@ public class Ticket {
 
 	public void setMetodoDePago(String metodoDePago) {
 		this.metodoDePago = metodoDePago;
+	}
+
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
 	}
 	
 	

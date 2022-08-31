@@ -25,6 +25,8 @@ public class TicketDto {
 	private Double importeTotal;
 
 	private String metodoDePago;
+	
+	private Integer descuento;
 
 
 	public TicketDto(Mesa mesa, Mozo mozo, LocalDate fecha, String nombreBar, String direccionBar) {
@@ -34,6 +36,7 @@ public class TicketDto {
 		this.fecha = fecha;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
+		
 		
 	}
 	
@@ -45,6 +48,9 @@ public class TicketDto {
 			 ticket.getDireccionBar());
 			this.id = ticket.getId();
 			this.nroTicket = ticket.getNroTicket();
+			this.importeTotal = ticket.getImporteTotal();
+			this.descuento = ticket.getDescuento();
+			
 	}
 
 	public Long getId() {
@@ -118,5 +124,15 @@ public class TicketDto {
 	public void setMetodoDePago(String metodoDePago) {
 		this.metodoDePago = metodoDePago;
 	}
+
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
+	}
+	
+	
 	
 }
