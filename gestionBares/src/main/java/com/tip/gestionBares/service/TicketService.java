@@ -7,5 +7,7 @@ public interface TicketService {
 
 	public TicketDto create(TicketDto ticketDto);
 	public List<TicketDto> delete(Long id);
+	public List<TicketDto> findAll();
+	public TicketDto applyDiscount(Long id, Integer porcentaje);
 
 }
