@@ -12,4 +12,6 @@ public interface TicketService {
 	public List<TicketDto> findByDate(LocalDate fecha);
 	public void generarImporteTotal(Long idTicket);
 	public TicketDto agregarProducto(Long idTicket, Long idProducto);
+	public List<TicketDto> findAll();
+	public TicketDto applyDiscount(Long id, Integer porcentaje);
 }

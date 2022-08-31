@@ -34,6 +34,7 @@ public class TicketServiceImplem implements TicketService{
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
 	}
+	
 	@Override
 	public List<TicketDto> delete(Long id) {
 		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
@@ -77,6 +78,26 @@ public class TicketServiceImplem implements TicketService{
 		this.ticketRepository.save(ticket);
 	}
 
-	
-	
+  @Override
+	public List<TicketDto> findAll() {
+		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
+		List<TicketDto> ticketsDto = new ArrayList<>();
+		
+		if(tickets != null) {
+			tickets.forEach(t -> ticketsDto.add(new TicketDto(t)));
+		}
+		return ticketsDto;
+	}
+
+	@Override
+	public TicketDto applyDiscount(Long id, Integer porcentaje) {
+		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
+		Double importeTotal = (Double) (ticket.getImporteTotal() - (ticket.getImporteTotal() * porcentaje / 100));
+		ticket.setDescuento(porcentaje);
+		ticket.setImporteTotal(importeTotal);
+		this.ticketRepository.save(ticket);
+		TicketDto ticketDto = new TicketDto(ticket);
+		return ticketDto;
+	}
+		
 }

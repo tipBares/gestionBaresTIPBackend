@@ -34,6 +34,7 @@ public class TicketDto {
 	
 	private List<Producto> productos;
 
+	private Integer descuento;
 
 	public TicketDto(Mesa mesa, Mozo mozo, String nombreBar, String direccionBar) {
 		super();
@@ -71,6 +72,8 @@ public class TicketDto {
 
 	public void setHoraFecha(LocalTime horaFecha) {
 		this.horaFecha = horaFecha;
+			this.importeTotal = ticket.getImporteTotal();
+			this.descuento = ticket.getDescuento();
 	}
 
 	public Long getId() {
@@ -143,6 +146,14 @@ public class TicketDto {
 
 	public void setMetodoDePago(String metodoDePago) {
 		this.metodoDePago = metodoDePago;
+	}
+
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
 	}
 	
 }

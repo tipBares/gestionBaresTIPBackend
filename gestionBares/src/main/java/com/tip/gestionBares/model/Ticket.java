@@ -51,6 +51,9 @@ public class Ticket {
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
 	@JoinColumn(name = "ticket_id")
 	private List<Producto> productos;
+	@Column(name = "descuento")
+	private Integer descuento;
+	
 	public Ticket() {
 		super();
 	}
@@ -156,6 +159,14 @@ public class Ticket {
 
 	public void setMetodoDePago(String metodoDePago) {
 		this.metodoDePago = metodoDePago;
+	}
+
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
 	}
 	
 	
