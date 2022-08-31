@@ -1,5 +1,6 @@
 package com.tip.gestionBares.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.TicketDto;
+import com.tip.gestionBares.model.Producto;
 import com.tip.gestionBares.model.Ticket;
+import com.tip.gestionBares.repositories.ProductoRepository;
 import com.tip.gestionBares.repositories.TicketRepository;
 
 @Service
@@ -16,13 +19,16 @@ public class TicketServiceImplem implements TicketService{
 	@Autowired
 	private TicketRepository ticketRepository;
 	
+	@Autowired
+	private ProductoRepository productoRepository;
+	
 	public TicketServiceImplem() {
 		
 	}
 
 	@Override
 	public TicketDto create(TicketDto ticketDto) {
-		Ticket ticket = new Ticket(ticketDto.getMesa(), ticketDto.getMozo(), ticketDto.getFecha(), 
+		Ticket ticket = new Ticket(ticketDto.getMesa(), ticketDto.getMozo(), 
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
 		this.ticketRepository.save(ticket);
@@ -44,6 +50,35 @@ public class TicketServiceImplem implements TicketService{
 	}
 
 	@Override
+	public List<TicketDto> findByDate(LocalDate fecha) {
+		List<Ticket> tickets = this.ticketRepository.findAllByFecha(fecha);
+		List<TicketDto> ticketsDto = new ArrayList<TicketDto>();
+		if(tickets != null) {
+			tickets.forEach(ticket -> ticketsDto.add(new TicketDto(ticket)));
+		}
+		
+		return ticketsDto;
+	}
+	
+	@Override
+	public TicketDto agregarProducto(Long idTicket, Long idProducto) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		Producto producto = this.productoRepository.findById(idProducto).orElse(null);
+		TicketDto ticketDto = new TicketDto(ticket);
+		ticketDto.getProductos().add(producto);
+		this.ticketRepository.save(ticket);
+		return ticketDto;
+	}
+
+	@Override
+	public void generarImporteTotal(Long idTicket) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		Double importeTotal = ticket.getProductos().stream().mapToDouble(producto -> producto.getPrecio()).sum();
+		ticket.setImporteTotal(importeTotal);
+		this.ticketRepository.save(ticket);
+	}
+
+  @Override
 	public List<TicketDto> findAll() {
 		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
 		List<TicketDto> ticketsDto = new ArrayList<>();
@@ -56,22 +91,13 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public TicketDto applyDiscount(Long id, Integer porcentaje) {
-		
 		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
-		
 		Double importeTotal = (Double) (ticket.getImporteTotal() - (ticket.getImporteTotal() * porcentaje / 100));
-		
 		ticket.setDescuento(porcentaje);
-		
 		ticket.setImporteTotal(importeTotal);
-		
 		this.ticketRepository.save(ticket);
-		
 		TicketDto ticketDto = new TicketDto(ticket);
 		return ticketDto;
-		
 	}
-	
-	
-	
+		
 }
