@@ -3,9 +3,9 @@ package com.tip.gestionBares.repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tip.gestionBares.model.Mozo;
+import com.tip.gestionBares.model.TicketProducto;
 
 @Repository
-public interface MozoRepository extends CrudRepository<Mozo, Long>{
+public interface TicketProductoRepository extends CrudRepository<TicketProducto, Long>{
 
 }

@@ -3,14 +3,16 @@ package com.tip.gestionBares.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.TicketDto;
-import com.tip.gestionBares.model.Producto;
+import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Ticket;
-import com.tip.gestionBares.repositories.ProductoRepository;
+import com.tip.gestionBares.model.TicketProducto;
+import com.tip.gestionBares.repositories.TicketProductoRepository;
 import com.tip.gestionBares.repositories.TicketRepository;
 
 @Service
@@ -18,9 +20,8 @@ public class TicketServiceImplem implements TicketService{
 
 	@Autowired
 	private TicketRepository ticketRepository;
-	
 	@Autowired
-	private ProductoRepository productoRepository;
+	private TicketProductoRepository ticketProductoRepository;
 	
 	public TicketServiceImplem() {
 		
@@ -61,19 +62,47 @@ public class TicketServiceImplem implements TicketService{
 	}
 	
 	@Override
-	public TicketDto agregarProducto(Long idTicket, Long idProducto) {
-		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
-		Producto producto = this.productoRepository.findById(idProducto).orElse(null);
-		TicketDto ticketDto = new TicketDto(ticket);
-		ticketDto.getProductos().add(producto);
+	public TicketDto agregarProducto(TicketProductoDto ticketProductoDto) {
+		
+		TicketProducto ticketProducto = new TicketProducto(ticketProductoDto.getIdTicket(), ticketProductoDto.getIdProducto(), ticketProductoDto.getCantidad());
+		
+		System.out.println("SOY TICKET PRODUCTO" + ticketProducto.getIdProducto());
+		//System.out.println("SOY TICKET PRODUCTO" + ticketProducto.getProducto().getNombre());
+		
+		
+		Ticket ticket = this.ticketRepository.findById(ticketProductoDto.getIdTicket()).orElse(null);
+		System.out.println("SOY EL TICKET PRODUCTO SIN FILLTROS" + ticket.getTicketProductos().stream().findFirst());
+
+		Optional<TicketProducto> ticketProductoExist = ticket.getTicketProductos().stream().filter(x -> x.getIdProducto().equals(ticketProductoDto.getIdProducto())).findFirst();
+
+		
+		//ticketProducto.orElse(null)
+		//ticketProducto.stream().forEach(t -> System.out.println(" SOY EL TICKET PRODUCTO " + t.toString()));
+		System.out.println("SOY EL TICKET PRODUCTO EXISTENTE" + ticketProductoExist);
+		if( ticketProductoExist.isPresent()) {
+		System.out.println("SOY TICKET PRODUCTO DTO CANTIDAD" + ticketProductoDto.getCantidad());
+		System.out.println("SOY TICKET PRODUCTO MODEL CANTIDAD" + ticketProducto.getCantidad());
+
+
+			ticketProductoExist.get().setCantidad(ticketProductoDto.getCantidad() + ticketProducto.getCantidad());
+		}else {
+			ticket.getTicketProductos().add(ticketProducto);
+		}
+		//System.out.println("SOY EL TICKET" + ticket.getId());
+		
+		this.ticketProductoRepository.save(ticketProducto);
 		this.ticketRepository.save(ticket);
+		
+		TicketDto ticketDto = new TicketDto(ticket);
+		ticketDto.getTicketProductosDto().add(ticketProductoDto);
+		System.out.println("SOY EL TICKET DTO"+ ticketDto.getTicketProductosDto());
 		return ticketDto;
 	}
 
 	@Override
 	public void generarImporteTotal(Long idTicket) {
 		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
-		Double importeTotal = ticket.getProductos().stream().mapToDouble(producto -> producto.getPrecio()).sum();
+		Double importeTotal = ticket.getTicketProductos().stream().mapToDouble(ticketProducto -> ticketProducto.getCantidad() * ticketProducto.getProducto().getPrecio()).sum();
 		ticket.setImporteTotal(importeTotal);
 		this.ticketRepository.save(ticket);
 	}
@@ -98,6 +127,17 @@ public class TicketServiceImplem implements TicketService{
 		this.ticketRepository.save(ticket);
 		TicketDto ticketDto = new TicketDto(ticket);
 		return ticketDto;
+	}
+
+	@Override
+	public TicketDto update(TicketDto ticketDto, Long id) {
+		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
+		ticket.setMesa(ticketDto.getMesa());
+		ticket.setMozo(ticketDto.getMozo());
+		ticket.setNombreBar(ticketDto.getNombreBar());
+		ticket.setDireccionBar(ticketDto.getDireccionBar());
+		this.ticketRepository.save(ticket);
+		return new TicketDto(ticket);
 	}
 		
 }

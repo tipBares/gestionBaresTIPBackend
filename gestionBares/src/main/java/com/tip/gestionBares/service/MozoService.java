@@ -1,5 +1,11 @@
 package com.tip.gestionBares.service;
 
-public class MozoService {
+import java.util.List;
+
+import com.tip.gestionBares.dto.MozoDto;
+
+public interface MozoService {
+	public List<MozoDto> findAll();
+	public MozoDto update(MozoDto mozoDto, Long id);
 
 }
