@@ -1,5 +1,6 @@
 package com.tip.gestionBares.dto;
 
+import com.tip.gestionBares.model.Categoria;
 import com.tip.gestionBares.model.Producto;
 
 public class ProductoDto {
@@ -10,11 +11,11 @@ public class ProductoDto {
 	
 	private Double precio;
 	
-	private String categoria;
+	private Categoria categoria;
 	
 	private String descripcion;
 
-	public ProductoDto(String nombre, Double precio, String categoria, String descripcion) {
+	public ProductoDto(String nombre, Double precio, Categoria categoria, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
@@ -54,11 +55,11 @@ public class ProductoDto {
 		this.precio = precio;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

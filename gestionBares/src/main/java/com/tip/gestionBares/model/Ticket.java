@@ -19,7 +19,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tip.gestionBares.dto.ProductoDto;
 
 @Entity(name="Ticket")
 @Table(name="ticket")
