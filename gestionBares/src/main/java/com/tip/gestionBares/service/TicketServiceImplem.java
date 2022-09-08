@@ -93,7 +93,7 @@ public class TicketServiceImplem implements TicketService{
   @Override
 	public List<TicketDto> findAll() {
 		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
-		List<TicketDto> ticketsDto = new ArrayList<>();
+		List<TicketDto> ticketsDto = new ArrayList<TicketDto>();
 		
 		if(tickets != null) {
 			tickets.forEach(t -> ticketsDto.add(new TicketDto(t)));

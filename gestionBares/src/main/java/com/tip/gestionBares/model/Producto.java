@@ -1,12 +1,14 @@
 package com.tip.gestionBares.model;
 
 import java.io.Serializable;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Producto")
@@ -28,13 +30,14 @@ public class Producto implements Serializable{
 	@Column(name = "precio")
 	private Double precio;
 	
-	@Column(name = "categoria")
-	private String categoria;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name= "categoria_id")
+	private Categoria categoria;
 	
 	@Column(name = "descripcion")
 	private String descripcion;
-	
-	public Producto(String nombre, Double precio, String categoria, String descripcion) {
+
+	public Producto(String nombre, Double precio, Categoria categoria, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
@@ -70,11 +73,11 @@ public class Producto implements Serializable{
 		this.precio = precio;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -85,8 +88,5 @@ public class Producto implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
-	
 	
 }
