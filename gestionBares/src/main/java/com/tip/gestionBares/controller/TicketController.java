@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
@@ -46,8 +47,20 @@ public class TicketController {
 
 	}
 	
-
-	@GetMapping("{date}")
+	@GetMapping("{id}")
+	public ResponseEntity<TicketDto> findById(@PathVariable(value = "id") Long id) throws NotFoundException {
+		TicketDto ticketDto = this.ticketService.getTicketById(id);
+		if(ticketDto == null) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "entity not found"
+					);
+		} else {
+			return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
+		}
+		
+	}
+	
+	@GetMapping("fecha/{date}")
     public ResponseEntity<List<TicketDto>> findBydate(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha) throws NotFoundException{
 		
 		List<TicketDto> ticketsDto = this.ticketService.findByDate(fecha);

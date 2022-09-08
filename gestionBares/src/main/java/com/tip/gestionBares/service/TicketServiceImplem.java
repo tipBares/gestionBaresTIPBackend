@@ -64,38 +64,21 @@ public class TicketServiceImplem implements TicketService{
 	@Override
 	public TicketDto agregarProducto(TicketProductoDto ticketProductoDto) {
 		
-		TicketProducto ticketProducto = new TicketProducto(ticketProductoDto.getIdTicket(), ticketProductoDto.getIdProducto(), ticketProductoDto.getCantidad());
-		
-		System.out.println("SOY TICKET PRODUCTO" + ticketProducto.getIdProducto());
-		//System.out.println("SOY TICKET PRODUCTO" + ticketProducto.getProducto().getNombre());
-		
-		
+		TicketProducto ticketProducto = new TicketProducto( ticketProductoDto.getIdTicket(), ticketProductoDto.getIdProducto(), ticketProductoDto.getCantidad());
+			
 		Ticket ticket = this.ticketRepository.findById(ticketProductoDto.getIdTicket()).orElse(null);
-		System.out.println("SOY EL TICKET PRODUCTO SIN FILLTROS" + ticket.getTicketProductos().stream().findFirst());
 
 		Optional<TicketProducto> ticketProductoExist = ticket.getTicketProductos().stream().filter(x -> x.getIdProducto().equals(ticketProductoDto.getIdProducto())).findFirst();
 
-		
-		//ticketProducto.orElse(null)
-		//ticketProducto.stream().forEach(t -> System.out.println(" SOY EL TICKET PRODUCTO " + t.toString()));
-		System.out.println("SOY EL TICKET PRODUCTO EXISTENTE" + ticketProductoExist);
 		if( ticketProductoExist.isPresent()) {
-		System.out.println("SOY TICKET PRODUCTO DTO CANTIDAD" + ticketProductoDto.getCantidad());
-		System.out.println("SOY TICKET PRODUCTO MODEL CANTIDAD" + ticketProducto.getCantidad());
-
-
-			ticketProductoExist.get().setCantidad(ticketProductoDto.getCantidad() + ticketProducto.getCantidad());
+			ticketProductoExist.get().setCantidad(ticketProductoDto.getCantidad() + ticketProductoExist.get().getCantidad());
+			this.ticketProductoRepository.saveAndFlush(ticketProductoExist.get());
 		}else {
 			ticket.getTicketProductos().add(ticketProducto);
+			this.ticketProductoRepository.saveAndFlush(ticketProducto);
 		}
-		//System.out.println("SOY EL TICKET" + ticket.getId());
 		
-		this.ticketProductoRepository.save(ticketProducto);
-		this.ticketRepository.save(ticket);
-		
-		TicketDto ticketDto = new TicketDto(ticket);
-		ticketDto.getTicketProductosDto().add(ticketProductoDto);
-		System.out.println("SOY EL TICKET DTO"+ ticketDto.getTicketProductosDto());
+		TicketDto ticketDto = getTicketById(ticketProductoDto.getIdTicket());
 		return ticketDto;
 	}
 
@@ -138,6 +121,17 @@ public class TicketServiceImplem implements TicketService{
 		ticket.setDireccionBar(ticketDto.getDireccionBar());
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
+	}
+
+	@Override
+	public TicketDto getTicketById(Long id) {
+		Optional<Ticket> ticket = this.ticketRepository.findById(id);
+		if(ticket.isPresent()) {
+			TicketDto ticketDto = new TicketDto(ticket.get());
+			return ticketDto;
+		} else {
+			return null;
+		}
 	}
 		
 }

@@ -15,5 +15,5 @@ public interface TicketService {
 	public List<TicketDto> findAll();
 	public TicketDto applyDiscount(Long id, Integer porcentaje);
 	public TicketDto update(TicketDto ticketDto, Long id);
-
+	public TicketDto getTicketById (Long id);
 }

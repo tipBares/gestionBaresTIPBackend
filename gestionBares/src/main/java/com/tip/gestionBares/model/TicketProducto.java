@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +20,6 @@ import javax.persistence.Table;
 @IdClass(value = TicketProductoId.class)
 public class TicketProducto {
 	
-	
-
-	@Column(name = "PK_Ticket_Producto", insertable = false, updatable = false)
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idTicketProducto;
-	
 	@Id
 	private Long idTicket;
 
@@ -34,11 +28,11 @@ public class TicketProducto {
 
 	private int cantidad;
 
-	@ManyToOne(cascade =CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY, cascade =CascadeType.ALL)
 	@JoinColumn(name = "idTicket",  referencedColumnName = "id", foreignKey = @ForeignKey(name = "ticketProducto_ticket_id_fk"), insertable = false, updatable = false)
 	private Ticket ticket;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
 	@JoinColumn(name = "idProducto", referencedColumnName = "id", foreignKey = @ForeignKey(name = "ticketProducto_producto_id_fk"), insertable = false, updatable = false)
 	private Producto producto;
 

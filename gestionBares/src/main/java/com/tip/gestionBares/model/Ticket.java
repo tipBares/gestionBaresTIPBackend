@@ -53,7 +53,7 @@ public class Ticket implements Serializable{
 	private Double importeTotal;
 	@Column(name = "metodo_de_pago")
 	private String metodoDePago;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "idProducto")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "ticket")
 	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();
 	@Column(name = "descuento")
 	private Integer descuento;

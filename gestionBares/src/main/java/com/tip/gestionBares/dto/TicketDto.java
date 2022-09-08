@@ -55,7 +55,7 @@ public class TicketDto {
 			this.metodoDePago = ticket.getMetodoDePago();
 			this.fecha = ticket.getFecha();
 			this.horaFecha = ticket.getHoraFecha();
-			//this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
+			this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
 			this.importeTotal = ticket.getImporteTotal();
 			this.descuento = ticket.getDescuento();
 	}

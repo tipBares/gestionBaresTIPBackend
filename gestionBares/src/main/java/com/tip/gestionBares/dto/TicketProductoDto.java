@@ -10,9 +10,19 @@ public class TicketProductoDto {
 	private Double precioProducto;
 	
 	public TicketProductoDto(TicketProducto ticketProducto) {
-		this(ticketProducto.getIdTicket(), ticketProducto.getIdProducto(), ticketProducto.getCantidad());	
-		this.nombreProducto = ticketProducto.getProducto().getNombre();
-		this.precioProducto = ticketProducto.getProducto().getPrecio();
+		this(ticketProducto.getIdTicket(), ticketProducto.getIdProducto(), ticketProducto.getCantidad());
+		if (ticketProducto.getProducto() != null) {
+			this.nombreProducto = ticketProducto.getProducto().getNombre();
+		} else {
+			this.nombreProducto = null;
+		}
+		
+		if (ticketProducto.getProducto() != null) {
+			this.precioProducto = ticketProducto.getProducto().getPrecio();
+		} else {
+			this.precioProducto = null;
+		}
+		
 	}
 	public TicketProductoDto(Long idTicket, Long idProducto, int cantidad) {
 		super();
