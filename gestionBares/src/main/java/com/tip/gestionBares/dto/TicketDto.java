@@ -56,6 +56,8 @@ public class TicketDto {
 			this.fecha = ticket.getFecha();
 			this.horaFecha = ticket.getHoraFecha();
 			this.productos = ticket.getProductos();
+			this.importeTotal = ticket.getImporteTotal();
+			this.descuento = ticket.getDescuento();
 	}
 	
 	public List<Producto> getProductos() {
@@ -72,8 +74,7 @@ public class TicketDto {
 
 	public void setHoraFecha(LocalTime horaFecha) {
 		this.horaFecha = horaFecha;
-			this.importeTotal = ticket.getImporteTotal();
-			this.descuento = ticket.getDescuento();
+			
 	}
 
 	public Long getId() {
