@@ -1,5 +1,6 @@
 package com.tip.gestionBares.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,7 +23,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name="Ticket")
 @Table(name="ticket")
-public class Ticket {
+public class Ticket implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final AtomicInteger count = new AtomicInteger(0); 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,11 +52,11 @@ public class Ticket {
 	private Double importeTotal;
 	@Column(name = "metodo_de_pago")
 	private String metodoDePago;
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	@JoinColumn(name = "ticket_id")
-	private List<Producto> productos;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "ticket")
+	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();
 	@Column(name = "descuento")
 	private Integer descuento;
+	
 	
 	public Ticket() {
 		super();
@@ -65,19 +70,6 @@ public class Ticket {
 		this.direccionBar = direccionBar;
 		this.nroTicket = count.incrementAndGet();
 		this.metodoDePago = "Efectivo";
-		this.productos = new ArrayList<Producto>();
-	}
-	
-	public void addProduct(Producto producto) {
-		this.productos.add(producto);
-	}
-	
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
 	}
 
 	public LocalTime getHoraFecha() {
@@ -166,6 +158,14 @@ public class Ticket {
 
 	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
+	}
+
+	public List<TicketProducto> getTicketProductos() {
+		return ticketProductos;
+	}
+
+	public void setTicketProductos(List<TicketProducto> ticketProductos) {
+		this.ticketProductos = ticketProductos;
 	}
 	
 	

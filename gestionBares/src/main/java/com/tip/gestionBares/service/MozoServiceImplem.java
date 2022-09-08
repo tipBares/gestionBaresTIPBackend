@@ -16,10 +16,28 @@ public class MozoServiceImplem implements MozoService{
 	@Autowired
 	private MozoRepository mozoRepository;
 	
+  public MozoServiceImplem() {
 	
-	
-	public MozoServiceImplem() {
-	
+	}
+  
+	@Override
+	public List<MozoDto> findAll() {
+		List<Mozo> mozos = (List<Mozo>) this.mozoRepository.findAll();
+		List<MozoDto> mozosDto = new ArrayList<MozoDto>();
+		
+		if(mozos != null) {
+			mozos.forEach(mozo -> mozosDto.add(new MozoDto(mozo)));
+		}
+		return mozosDto;
+	}
+
+	@Override
+	public MozoDto update(MozoDto mozoDto, Long id) {
+		Mozo mozo = this.mozoRepository.findById(id).orElse(null);
+		mozo.setNombre(mozoDto.getNombre());
+		mozo.setApellido(mozo.getApellido());
+		this.mozoRepository.save(mozo);
+		return new MozoDto(mozo);
 	}
 
 	@Override

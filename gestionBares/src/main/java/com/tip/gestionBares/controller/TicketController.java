@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tip.gestionBares.dto.TicketDto;
+import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.service.TicketService;
 
 @RestController
-@RequestMapping("/ticket")
+@RequestMapping("/tickets")
 public class TicketController {
 
 	@Autowired
@@ -35,7 +36,7 @@ public class TicketController {
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<List<TicketDto>> delete(@PathVariable(value = "id") Long id) throws NotFoundException {
 		List<TicketDto> ticketsDto = this.ticketService.delete(id);
 		if (ticketsDto.size() <= 0) {
@@ -46,8 +47,20 @@ public class TicketController {
 
 	}
 	
-
-	@GetMapping("/date/{date}")
+	@GetMapping("{id}")
+	public ResponseEntity<TicketDto> findById(@PathVariable(value = "id") Long id) throws NotFoundException {
+		TicketDto ticketDto = this.ticketService.getTicketById(id);
+		if(ticketDto == null) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "entity not found"
+					);
+		} else {
+			return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
+		}
+		
+	}
+	
+	@GetMapping("fecha/{date}")
     public ResponseEntity<List<TicketDto>> findBydate(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha) throws NotFoundException{
 		
 		List<TicketDto> ticketsDto = this.ticketService.findByDate(fecha);
@@ -58,9 +71,9 @@ public class TicketController {
 		return new ResponseEntity<List<TicketDto>>(ticketsDto, HttpStatus.OK);
     }
 	
-	@PostMapping("/addProducto/{idTicket}/{idProducto}")
-	public ResponseEntity<TicketDto> addProduct(@PathVariable(value = "idTicket")Long idTicket, @PathVariable(value = "idProducto")Long idProducto) {
-		TicketDto ticketDto = this.ticketService.agregarProducto(idTicket, idProducto);
+	@PostMapping("/productos")
+	public ResponseEntity<TicketDto> addProduct(@RequestBody TicketProductoDto ticketProductoDto) {
+		TicketDto ticketDto = this.ticketService.agregarProducto(ticketProductoDto);
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.CREATED);
 	}
 	
@@ -70,7 +83,7 @@ public class TicketController {
 		return null;
 	}
 
-	@GetMapping("/All")
+	@GetMapping()
 	public ResponseEntity<List<TicketDto>> findAll() throws NotFoundException{
 		List<TicketDto> ticketsDto = this.ticketService.findAll();
 		if(ticketsDto.size() <= 0) {
@@ -79,12 +92,21 @@ public class TicketController {
 		return new ResponseEntity<List<TicketDto>>(ticketsDto, HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<TicketDto> applyDiscount(@PathVariable(value = "id") Long id, @RequestParam Integer porcentaje){
+	@PutMapping("{id}/descuento/{porcentaje}")
+	public ResponseEntity<TicketDto> applyDiscount(@PathVariable Long id, @PathVariable Integer porcentaje){
 		TicketDto ticketDto = this.ticketService.applyDiscount(id, porcentaje);
 		
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
 		
+	}
+	
+	@PutMapping("{id}")
+	public ResponseEntity<TicketDto> updateById(@RequestBody TicketDto ticket, @PathVariable("id") Long id) throws NotFoundException {
+		TicketDto ticketDto = this.ticketService.update(ticket, id);
+		if(ticketDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
 	}
 	
 }

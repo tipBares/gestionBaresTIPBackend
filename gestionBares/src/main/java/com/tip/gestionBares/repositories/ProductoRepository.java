@@ -15,11 +15,5 @@ public interface ProductoRepository extends CrudRepository<Producto, Long>{
 
 	@Query("FROM Producto p WHERE p.nombre LIKE :nombre%")
 	public List<Producto> findByNombre(@Param("nombre") String nombre);
-
-
 	public List<Producto> findByCategoria(String categoria);
-
-
-
-
 }
