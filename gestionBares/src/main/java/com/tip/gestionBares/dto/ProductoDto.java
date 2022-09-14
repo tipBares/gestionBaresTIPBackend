@@ -1,6 +1,5 @@
 package com.tip.gestionBares.dto;
 
-import com.tip.gestionBares.model.Categoria;
 import com.tip.gestionBares.model.Producto;
 
 public class ProductoDto {
@@ -11,23 +10,22 @@ public class ProductoDto {
 	
 	private Double precio;
 	
-	private Categoria categoria;
+	private CategoriaDto categoriaDto;
 	
 	private String descripcion;
 
-	public ProductoDto(String nombre, Double precio, Categoria categoria, String descripcion) {
+	public ProductoDto(String nombre, Double precio, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
-		this.categoria = categoria;
 		this.descripcion = descripcion;
 	}
 	
 	public ProductoDto(Producto producto) {
 		this(producto.getNombre(),
 			 producto.getPrecio(),
-			 producto.getCategoria(),
 			 producto.getDescripcion());
+		this.categoriaDto = new CategoriaDto(producto.getCategoria());
 		this.id = producto.getId();
 	}
 
@@ -55,12 +53,12 @@ public class ProductoDto {
 		this.precio = precio;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public CategoriaDto getCategoria() {
+		return categoriaDto;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoriaDto(CategoriaDto categoriaDto) {
+		this.categoriaDto = categoriaDto;
 	}
 
 	public String getDescripcion() {

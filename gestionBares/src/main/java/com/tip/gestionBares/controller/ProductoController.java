@@ -26,9 +26,9 @@ public class ProductoController {
 	@Autowired
 	private ProductoService productoService;
 	
-	@PostMapping
-	public ResponseEntity<ProductoDto> create(@RequestBody ProductoDto productoDto){
-		productoDto = this.productoService.create(productoDto);
+	@PostMapping("{id}")
+	public ResponseEntity<ProductoDto> create(@RequestBody ProductoDto productoDto, @PathVariable("id") Long idCategoria){
+		productoDto = this.productoService.create(productoDto, idCategoria);
 		
 		return new ResponseEntity<ProductoDto>(productoDto, HttpStatus.CREATED);
 		
@@ -43,9 +43,9 @@ public class ProductoController {
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}
 	
-	@PutMapping("{id}")
-	public ResponseEntity<ProductoDto> updateById(@RequestBody ProductoDto producto, @PathVariable("id") Long id) throws NotFoundException {
-		ProductoDto productoDto = this.productoService.update(producto, id);
+	@PutMapping("{id}/{idCategoria}")
+	public ResponseEntity<ProductoDto> updateById(@RequestBody ProductoDto producto, @PathVariable("id") Long id, @PathVariable("idCategoria") Long idCategoria) throws NotFoundException {
+		ProductoDto productoDto = this.productoService.update(producto, id, idCategoria);
 		if(productoDto == null) {
 			throw new NotFoundException();
 		}
@@ -66,9 +66,7 @@ public class ProductoController {
 	@GetMapping("/productoAll")
 	public ResponseEntity<List<ProductoDto>> findAll() throws NotFoundException{
 		List<ProductoDto> productosDto = this.productoService.findByAll();
-		if(productosDto.size() <= 0) {
-			throw new NotFoundException();
-		}
+		
 		
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}
@@ -76,9 +74,6 @@ public class ProductoController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<List<ProductoDto>> delete(@PathVariable(value ="id") Long id) throws NotFoundException{
 		List<ProductoDto> productosDto = this.productoService.delete(id);
-		if(productosDto.size() <= 0) {
-			throw new NotFoundException();
-		}
 		
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}

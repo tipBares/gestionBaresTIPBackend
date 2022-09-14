@@ -37,12 +37,12 @@ public class Producto implements Serializable{
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	public Producto(String nombre, Double precio, Categoria categoria, String descripcion) {
+	public Producto(String nombre, Double precio, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
-		this.categoria = categoria;
 		this.descripcion = descripcion;
+		//this.categoria = categoria;
 	}
 
 	public Producto() {
