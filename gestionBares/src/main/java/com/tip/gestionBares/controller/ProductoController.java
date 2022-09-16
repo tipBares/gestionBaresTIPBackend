@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +21,10 @@ import com.tip.gestionBares.dto.ProductoDto;
 import com.tip.gestionBares.service.ProductoService;
 
 @RestController
-@RequestMapping("/producto")
+@RequestMapping("/productos")
+@CrossOrigin(origins = {"http://localhost:3000", "*"}, maxAge = 3600)
 public class ProductoController {
-
+	
 	@Autowired
 	private ProductoService productoService;
 	
@@ -71,7 +73,7 @@ public class ProductoController {
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<List<ProductoDto>> delete(@PathVariable(value ="id") Long id) throws NotFoundException{
 		List<ProductoDto> productosDto = this.productoService.delete(id);
 		

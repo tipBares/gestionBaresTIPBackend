@@ -36,6 +36,7 @@ public class MozoServiceImplem implements MozoService{
 		Mozo mozo = this.mozoRepository.findById(id).orElse(null);
 		mozo.setNombre(mozoDto.getNombre());
 		mozo.setApellido(mozo.getApellido());
+		mozo.setNick(mozo.getNick());
 		this.mozoRepository.save(mozo);
 		return new MozoDto(mozo);
 	}
@@ -43,7 +44,8 @@ public class MozoServiceImplem implements MozoService{
 	@Override
 	public MozoDto create(MozoDto mozoDto) {
 		Mozo mozo = new Mozo(mozoDto.getNombre(),
-				mozoDto.getApellido()
+				mozoDto.getApellido(),
+				mozoDto.getNick()
 				);
 		this.mozoRepository.save(mozo);
 		return new MozoDto(mozo);

@@ -24,15 +24,18 @@ public class Mozo implements Serializable{
 	private String nombre;
 	@Column(name = "apellido")
 	private String apellido;
+	@Column(name = "nick", unique=true)
+	private String nick;
 	
 	public Mozo() {
 		super();
 	}
 
-	public Mozo(String nombre, String apellido) {
+	public Mozo(String nombre, String apellido, String nick) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.nick = nick;
 	}
 
 	public Long getId() {
@@ -57,6 +60,14 @@ public class Mozo implements Serializable{
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	
 	

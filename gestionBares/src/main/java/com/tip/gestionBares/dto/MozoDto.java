@@ -6,14 +6,17 @@ public class MozoDto {
 	private Long id;
 	private String nombre;
 	private String apellido;
-	public MozoDto(String nombre, String apellido) {
+	private String nick;
+	public MozoDto(String nombre, String apellido, String nick) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.nick = nick;
 	}
 	public MozoDto(Mozo mozo) {
 		this(mozo.getNombre(),
-			 mozo.getApellido());
+			 mozo.getApellido(),
+			 mozo.getNick());
 		this.id = mozo.getId();
 	}
 	public Long getId() {
@@ -33,6 +36,12 @@ public class MozoDto {
 	}
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	
 	
