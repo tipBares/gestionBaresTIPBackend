@@ -8,4 +8,5 @@ public interface MozoService {
 	public MozoDto update(MozoDto mozoDto, Long id);
 	public MozoDto create(MozoDto mozoDto);
 	public List<MozoDto> delete(Long id);
+	public MozoDto findById(Long id);
 }

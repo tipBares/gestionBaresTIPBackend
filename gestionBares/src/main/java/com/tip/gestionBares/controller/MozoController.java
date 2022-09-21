@@ -33,6 +33,15 @@ public class MozoController {
 		}
 		return new ResponseEntity<List<MozoDto>>(mozosDto, HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<MozoDto> findById(@PathVariable("id") Long id) throws NotFoundException {
+		MozoDto mozoDto = this.mozoService.findById(id);
+		if (mozoDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<MozoDto>(mozoDto, HttpStatus.OK);
+	}
 
 	@PutMapping("{id}")
 	public ResponseEntity<MozoDto> updateById(@RequestBody MozoDto mozo, @PathVariable("id") Long id)
