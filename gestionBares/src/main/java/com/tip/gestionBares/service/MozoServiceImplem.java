@@ -32,6 +32,13 @@ public class MozoServiceImplem implements MozoService{
 	}
 
 	@Override
+	public MozoDto findById(Long id) {
+		Mozo mozo = this.mozoRepository.findById(id).orElse(null);
+		MozoDto mozoDto = new MozoDto(mozo);
+		return mozoDto;
+	}
+	
+	@Override
 	public MozoDto update(MozoDto mozoDto, Long id) {
 		Mozo mozo = this.mozoRepository.findById(id).orElse(null);
 		mozo.setNombre(mozoDto.getNombre());
