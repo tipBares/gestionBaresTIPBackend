@@ -42,8 +42,8 @@ public class MozoServiceImplem implements MozoService{
 	public MozoDto update(MozoDto mozoDto, Long id) {
 		Mozo mozo = this.mozoRepository.findById(id).orElse(null);
 		mozo.setNombre(mozoDto.getNombre());
-		mozo.setApellido(mozo.getApellido());
-		mozo.setNick(mozo.getNick());
+		mozo.setApellido(mozoDto.getApellido());
+		mozo.setNick(mozoDto.getNick());
 		this.mozoRepository.save(mozo);
 		return new MozoDto(mozo);
 	}
