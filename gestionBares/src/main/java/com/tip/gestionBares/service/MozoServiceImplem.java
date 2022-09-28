@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.MozoDto;
 import com.tip.gestionBares.model.Mozo;
+import com.tip.gestionBares.model.Producto;
 import com.tip.gestionBares.repositories.MozoRepository;
 
 @Service
@@ -69,6 +72,11 @@ public class MozoServiceImplem implements MozoService{
 		}
 		this.mozoRepository.delete(mozo);
 		return mozosDto;
+	}
+
+	@Override
+	public Page<Mozo> paginas(Pageable pageable) {
+		return this.mozoRepository.findAll(pageable);
 	}
 
 }
