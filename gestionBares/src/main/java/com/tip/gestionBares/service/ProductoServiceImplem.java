@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.ProductoDto;
@@ -108,8 +106,5 @@ public class ProductoServiceImplem implements ProductoService {
 	public Page<Producto> paginas(Pageable pageable) {
 		return this.productoRepository.findAll(pageable);
 	}
-
-	
-
 
 }
