@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.MozoDto;
 import com.tip.gestionBares.model.Mozo;
-import com.tip.gestionBares.model.Producto;
 import com.tip.gestionBares.repositories.MozoRepository;
 
 @Service
