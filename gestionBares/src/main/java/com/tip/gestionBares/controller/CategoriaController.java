@@ -20,7 +20,7 @@ import com.tip.gestionBares.dto.CategoriaDto;
 import com.tip.gestionBares.service.CategoriaService;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 @CrossOrigin(origins = {"http://localhost:3000", "*"}, maxAge = 3600)
 public class CategoriaController {
 
