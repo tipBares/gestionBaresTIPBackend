@@ -17,7 +17,7 @@ import com.tip.gestionBares.dto.MesaDto;
 import com.tip.gestionBares.service.MesaService;
 
 @RestController
-@RequestMapping("/mesa")
+@RequestMapping("/mesas")
 @CrossOrigin(origins = {"http://localhost:3000", "*"}, maxAge = 3600)
 public class MesaController {
 

@@ -22,11 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tip.gestionBares.dto.MozoDto;
 import com.tip.gestionBares.model.Mozo;
-import com.tip.gestionBares.model.Producto;
 import com.tip.gestionBares.service.MozoService;
 
 @RestController
-@RequestMapping("/Mozo")
+@RequestMapping("/mozos")
 @CrossOrigin(origins = {"http://localhost:3000", "*"}, maxAge = 3600)
 public class MozoController {
 
