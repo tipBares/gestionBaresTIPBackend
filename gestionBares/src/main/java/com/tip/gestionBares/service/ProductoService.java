@@ -16,4 +16,5 @@ public interface ProductoService {
 	public List<ProductoDto> findByAll();
 	public List<ProductoDto> delete(Long id);
 	public Page<Producto> paginas(Pageable pageable);
+	public ProductoDto findById(Long id);
 }

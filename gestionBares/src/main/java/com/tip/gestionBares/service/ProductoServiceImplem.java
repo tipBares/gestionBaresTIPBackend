@@ -107,4 +107,11 @@ public class ProductoServiceImplem implements ProductoService {
 		return this.productoRepository.findAll(pageable);
 	}
 
+	@Override
+	public ProductoDto findById(Long id) {
+		Producto producto = this.productoRepository.findById(id).orElse(null);
+		ProductoDto productoDto = new ProductoDto(producto);
+		return productoDto;
+	}
+
 }
