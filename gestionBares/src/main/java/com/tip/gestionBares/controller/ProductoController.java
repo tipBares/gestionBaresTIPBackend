@@ -94,4 +94,13 @@ public class ProductoController {
 
 		return new ResponseEntity<Page<Producto>>(productos, HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<ProductoDto> findById(@PathVariable("id") Long id) throws NotFoundException {
+		ProductoDto productoDto = this.productoService.findById(id);
+		if (productoDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<ProductoDto>(productoDto, HttpStatus.OK);
+	}
 }
