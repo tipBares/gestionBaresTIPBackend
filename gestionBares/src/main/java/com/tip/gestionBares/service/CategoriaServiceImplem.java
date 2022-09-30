@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.CategoriaDto;
@@ -57,8 +59,7 @@ public class CategoriaServiceImplem implements CategoriaService{
 	@Override
 	public CategoriaDto update(CategoriaDto categoriaDto, Long id) {
 		Categoria categoria = this.categoriaRepository.findById(id).orElse(null);
-		categoria.setNombre(categoria.getNombre());
-		
+		categoria.setNombre(categoriaDto.getNombre());
 		this.categoriaRepository.save(categoria);
 		return new CategoriaDto(categoria);
 	}
@@ -69,6 +70,11 @@ public class CategoriaServiceImplem implements CategoriaService{
 		CategoriaDto categoriaDto = new CategoriaDto(categoria);
 		
 		return categoriaDto;
+	}
+
+	@Override
+	public Page<Categoria> paginas(Pageable pageable) {
+		return this.categoriaRepository.findAll(pageable);
 	}
 
 }

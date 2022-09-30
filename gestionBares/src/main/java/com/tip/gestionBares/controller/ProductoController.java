@@ -80,7 +80,6 @@ public class ProductoController {
 	@DeleteMapping("{id}")
 	public ResponseEntity<List<ProductoDto>> delete(@PathVariable(value ="id") Long id) throws NotFoundException{
 		List<ProductoDto> productosDto = this.productoService.delete(id);
-		
 		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
 	}
 	

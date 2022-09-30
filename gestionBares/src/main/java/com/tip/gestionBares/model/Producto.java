@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 @Entity(name="Producto")
 @Table(name="producto")
+
 public class Producto implements Serializable{
 
 	/**
@@ -30,7 +31,7 @@ public class Producto implements Serializable{
 	@Column(name = "precio")
 	private Double precio;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name= "categoria_id")
 	private Categoria categoria;
 	
