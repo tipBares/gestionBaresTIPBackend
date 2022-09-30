@@ -15,5 +15,4 @@ public interface MozoService {
 	public List<MozoDto> delete(Long id);
 	public MozoDto findById(Long id);
 	public Page<Mozo> paginas(Pageable pageable);
-
 }

@@ -70,9 +70,6 @@ public class MozoController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<List<MozoDto>> delete(@PathVariable(value = "id") Long id) throws NotFoundException {
 		List<MozoDto> mozosDto = this.mozoService.delete(id);
-		if (mozosDto.size() <= 0) {
-			throw new NotFoundException();
-		}
 		return new ResponseEntity<List<MozoDto>>(mozosDto, HttpStatus.OK);
 	}
 	@GetMapping("/{pag}")

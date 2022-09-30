@@ -39,9 +39,7 @@ public class TicketController {
 	@DeleteMapping("{id}")
 	public ResponseEntity<List<TicketDto>> delete(@PathVariable(value = "id") Long id) throws NotFoundException {
 		List<TicketDto> ticketsDto = this.ticketService.delete(id);
-		if (ticketsDto.size() <= 0) {
-			throw new NotFoundException();
-		}
+		
 
 		return new ResponseEntity<List<TicketDto>>(ticketsDto, HttpStatus.OK);
 
