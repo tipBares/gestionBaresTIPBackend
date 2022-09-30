@@ -40,13 +40,15 @@ public class ProductoController {
 		
 	}
 
-	@GetMapping
-	public ResponseEntity<List<ProductoDto>> findByName(@RequestParam String nombre) throws NotFoundException{
-		List<ProductoDto> productosDto = this.productoService.finByName(nombre);
-		if(productosDto.size() <= 0) {
-			throw new NotFoundException();
-		}
-		return new ResponseEntity<List<ProductoDto>>(productosDto, HttpStatus.OK);
+	@GetMapping("/nombre/{pag}")
+	public ResponseEntity<Page<Producto>> findByName(
+			@RequestParam String nombre, 
+			@PathVariable(value = "pag" ) int page,
+            @RequestParam(defaultValue = "7") int size,
+            @RequestParam(defaultValue = "nombre") String order) throws NotFoundException{
+		Page<Producto> productos = this.productoService.finByName(nombre, PageRequest.of(page, size, Sort.by(order)));
+		
+		return new ResponseEntity<Page<Producto>>(productos, HttpStatus.OK);
 	}
 	
 	@PutMapping("{id}/{idCategoria}")

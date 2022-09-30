@@ -10,7 +10,7 @@ import com.tip.gestionBares.model.Producto;
 
 public interface ProductoService {
 	public ProductoDto create(ProductoDto productoDto, Long idCategoria);
-	public List<ProductoDto> finByName(String nombreProducto);
+	public Page<Producto> finByName(String nombreProducto, Pageable pageable);
 	public ProductoDto update(ProductoDto productoDto, Long id, Long idCategoria);
 	public List<ProductoDto> findByCategory(String categoria);
 	public List<ProductoDto> findByAll();

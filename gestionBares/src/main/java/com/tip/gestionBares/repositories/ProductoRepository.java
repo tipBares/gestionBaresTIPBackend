@@ -3,6 +3,8 @@ package com.tip.gestionBares.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +16,6 @@ import com.tip.gestionBares.model.Producto;
 public interface ProductoRepository extends JpaRepository<Producto, Long>{
 
 	@Query("FROM Producto p WHERE p.nombre LIKE :nombre%")
-	public List<Producto> findByNombre(@Param("nombre") String nombre);
+	public Page<Producto> findByNombre(@Param("nombre") String nombre, Pageable pageable);
 	public List<Producto> findByCategoria(String categoria);
 }

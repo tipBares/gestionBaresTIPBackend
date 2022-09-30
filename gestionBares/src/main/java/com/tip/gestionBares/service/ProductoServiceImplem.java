@@ -42,13 +42,10 @@ public class ProductoServiceImplem implements ProductoService {
 	}
 
 	@Override
-	public List<ProductoDto> finByName(String nombreProducto) {
-		List<ProductoDto> resultado = new ArrayList<ProductoDto>();
-		List<Producto> productos = this.productoRepository.findByNombre(nombreProducto);
-		for (Producto producto : productos) {
-			resultado.add(new ProductoDto(producto));
-		}
-		return resultado;
+	public Page<Producto> finByName(String nombreProducto, Pageable pageable) {
+		Page<Producto> productos = this.productoRepository.findByNombre(nombreProducto, pageable);
+		
+		return productos;
 	}
 
 	@Override
