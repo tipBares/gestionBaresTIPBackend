@@ -60,16 +60,12 @@ public class ProductoServiceImplem implements ProductoService {
 		return new ProductoDto(producto);
 	}
 	
-	
 	@Override
-	public List<ProductoDto> findByCategory(String categoria){
-		List<Producto> productos = this.productoRepository.findByCategoria(categoria);
-		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
-		if(productos != null) {
-			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
-		}
+	public Page<Producto> findByCategory(Long idCategoria, Pageable pageable){
+		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
+		Page<Producto> productos = this.productoRepository.findByCategoria(categoria, pageable);
 		
-		return productosDto;
+		return productos;
 	}
 
 	@Override
@@ -97,7 +93,6 @@ public class ProductoServiceImplem implements ProductoService {
 		
 		return productosDto;
 	}
-
 	
 	@Override
 	public Page<Producto> paginas(Pageable pageable) {
