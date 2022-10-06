@@ -1,8 +1,7 @@
 package com.tip.gestionBares.controller;
 
-import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -59,7 +58,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("fecha/{date}")
-    public ResponseEntity<List<TicketDto>> findBydate(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha) throws NotFoundException{
+    public ResponseEntity<List<TicketDto>> findBydate(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date fecha) throws NotFoundException{
 		
 		List<TicketDto> ticketsDto = this.ticketService.findByDate(fecha);
 		if (ticketsDto.size() <= 0) {

@@ -1,12 +1,12 @@
 package com.tip.gestionBares.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name="Ticket")
 @Table(name="ticket")
@@ -37,11 +37,14 @@ public class Ticket implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "mozo_id")
 	private Mozo mozo;
-	@Column(name = "fecha")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate fecha = LocalDate.now();
-	@Column(name = "hora_fecha")
-	private LocalTime horaFecha = LocalTime.now();
+	@Column(name = "fecha_creacion")
+	@Basic
+	@javax.persistence.Temporal(TemporalType.TIMESTAMP)
+	private java.util.Date fechaCreacion = new Date(System.currentTimeMillis());
+	@Column(name = "fecha_ultima_modificacion")
+	@Basic
+	@javax.persistence.Temporal(TemporalType.TIMESTAMP)
+	private java.util.Date fechaUltimaModificacion = new Date(System.currentTimeMillis());
 	@Column(name = "nombre_bar")
 	private String nombreBar;
 	@Column(name = "direccion_bar")
@@ -72,13 +75,7 @@ public class Ticket implements Serializable{
 		this.metodoDePago = "Efectivo";
 	}
 
-	public LocalTime getHoraFecha() {
-		return horaFecha;
-	}
 
-	public void setHoraFecha(LocalTime horaFecha) {
-		this.horaFecha = horaFecha;
-	}
 
 	public Long getId() {
 		return id;
@@ -104,12 +101,20 @@ public class Ticket implements Serializable{
 		this.mozo = mozo;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setFechaCreacion(Date fecha) {
+		this.fechaCreacion = fecha;
+	}
+	
+	public Date getFechaUltimaModificacion() {
+		return fechaUltimaModificacion;
+	}
+
+	public void setFechaUltimaModificacion(Date fecha) {
+		this.fechaUltimaModificacion = fecha;
 	}
 
 	public String getNombreBar() {
