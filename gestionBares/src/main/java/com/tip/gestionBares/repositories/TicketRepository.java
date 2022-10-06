@@ -1,6 +1,6 @@
 package com.tip.gestionBares.repositories;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +10,6 @@ import com.tip.gestionBares.model.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>{
-	public List<Ticket> findAllByFecha(LocalDate fecha);
+	public List<Ticket> findAllByFechaCreacion(Date fecha);
 
 }
