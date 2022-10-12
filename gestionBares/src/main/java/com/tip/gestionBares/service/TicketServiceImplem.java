@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.TicketDto;
@@ -49,7 +51,7 @@ public class TicketServiceImplem implements TicketService{
 		
 		return ticketsDto;
 	}
-
+  
 	@Override
 	public List<TicketDto> findByDate(Date fecha) {
 		List<Ticket> tickets = this.ticketRepository.findAllByFechaCreacion(fecha);
@@ -133,5 +135,23 @@ public class TicketServiceImplem implements TicketService{
 			return null;
 		}
 	}
+
+	@Override
+	public Page<Ticket> findAllPag(Pageable pageable) {
+		return this.ticketRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<Ticket> findByDate(LocalDate fecha, Pageable pageable) {
+		Page<Ticket> tickets = this.ticketRepository.findAllByFecha(fecha, pageable);
+		return tickets;
+	}
+
+	
+
+	
+
+	
+
 		
 }
