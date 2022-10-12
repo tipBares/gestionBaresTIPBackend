@@ -1,8 +1,7 @@
 package com.tip.gestionBares.dto;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,27 +12,16 @@ import com.tip.gestionBares.model.Ticket;
 public class TicketDto {
 
 	private Long id;
-	
 	private Mesa mesa;
-	
 	private Mozo mozo;
-	
-	private LocalDate fecha;
-	
-	private LocalTime horaFecha;
-	
+	private Date fechaCreacion;
+	private Date fechaUltimaModificacion;
 	private String nombreBar;
-	
 	private String direccionBar;
-	
 	private Integer nroTicket;
-	
 	private Double importeTotal;
-
 	private String metodoDePago;
-	
 	private List<TicketProductoDto> ticketProductosDto;
-
 	private Integer descuento;
 
 	public TicketDto(Mesa mesa, Mozo mozo, String nombreBar, String direccionBar) {
@@ -53,8 +41,8 @@ public class TicketDto {
 			this.id = ticket.getId();
 			this.nroTicket = ticket.getNroTicket();
 			this.metodoDePago = ticket.getMetodoDePago();
-			this.fecha = ticket.getFecha();
-			this.horaFecha = ticket.getHoraFecha();
+			this.fechaCreacion = ticket.getFechaCreacion();
+			this.fechaUltimaModificacion = ticket.getFechaUltimaModificacion();
 			this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
 			this.importeTotal = ticket.getImporteTotal();
 			this.descuento = ticket.getDescuento();
@@ -66,14 +54,6 @@ public class TicketDto {
 
 	public void setTicketProductosDto(List<TicketProductoDto> ticketProductosDto) {
 		this.ticketProductosDto = ticketProductosDto;
-	}
-
-	public LocalTime getHoraFecha() {
-		return horaFecha;
-	}
-
-	public void setHoraFecha(LocalTime horaFecha) {
-		this.horaFecha = horaFecha;
 	}
 
 	public Long getId() {
@@ -100,12 +80,20 @@ public class TicketDto {
 		this.mozo = mozo;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setFechaCreacion(Date fecha) {
+		this.fechaCreacion = fecha;
+	}
+
+	public Date getFechaUltimaModificacion() {
+		return fechaUltimaModificacion;
+	}
+
+	public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
+		this.fechaUltimaModificacion = fechaUltimaModificacion;
 	}
 
 	public String getNombreBar() {

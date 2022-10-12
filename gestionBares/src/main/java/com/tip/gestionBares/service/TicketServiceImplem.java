@@ -1,7 +1,7 @@
 package com.tip.gestionBares.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +48,17 @@ public class TicketServiceImplem implements TicketService{
 			tickets.forEach(p -> ticketsDto.add(new TicketDto(p)));
 		}
 		this.ticketRepository.delete(ticket);
+		
+		return ticketsDto;
+	}
+  
+	@Override
+	public List<TicketDto> findByDate(Date fecha) {
+		List<Ticket> tickets = this.ticketRepository.findAllByFechaCreacion(fecha);
+		List<TicketDto> ticketsDto = new ArrayList<TicketDto>();
+		if(tickets != null) {
+			tickets.forEach(ticket -> ticketsDto.add(new TicketDto(ticket)));
+		}
 		
 		return ticketsDto;
 	}

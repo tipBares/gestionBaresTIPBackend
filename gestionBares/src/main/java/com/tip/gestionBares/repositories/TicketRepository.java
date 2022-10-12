@@ -1,6 +1,8 @@
 package com.tip.gestionBares.repositories;
 
-import java.time.LocalDate;
+
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +13,7 @@ import com.tip.gestionBares.model.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>{
-	public Page<Ticket> findAllByFecha(LocalDate fecha, Pageable pageable);
-	
+
+	public List<Ticket> findAllByFechaCreacion(Date fecha);
 
 }

@@ -1,6 +1,6 @@
 package com.tip.gestionBares.service;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import com.tip.gestionBares.model.Ticket;
 public interface TicketService {
 	public TicketDto create(TicketDto ticketDto);
 	public List<TicketDto> delete(Long id);
-	public Page<Ticket> findByDate(LocalDate fecha, Pageable pageable);
+	public List<TicketDto> findByDate(Date fecha);
 	public void generarImporteTotal(Long idTicket);
 	public TicketDto agregarProducto(TicketProductoDto ticketProductoDto);
 	public List<TicketDto> findAll();

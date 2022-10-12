@@ -1,8 +1,7 @@
 package com.tip.gestionBares.controller;
 
-import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -64,6 +63,7 @@ public class TicketController {
 		
 	}
 	
+
 	@GetMapping("{date}/{pag}")
     public ResponseEntity<Page<Ticket>> findBydate(
     		@PathVariable(value = "pag" ) int page,
@@ -72,6 +72,8 @@ public class TicketController {
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha) throws NotFoundException{
 		
 		Page<Ticket> tickets = this.ticketService.findByDate(fecha, PageRequest.of(page, size));
+
+	
 		
 
 		return new ResponseEntity<Page<Ticket>>(tickets, HttpStatus.OK);
