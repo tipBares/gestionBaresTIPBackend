@@ -59,23 +59,32 @@ public class Ticket implements Serializable{
 	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();
 	@Column(name = "descuento")
 	private Integer descuento;
+	@Column(name = "en_proceso")
+	private Boolean enProceso;
 	
 	
 	public Ticket() {
 		super();
 	}
 
-	public Ticket(Mesa mesa, Mozo mozo, String nombreBar, String direccionBar) {
+	public Ticket(Mesa mesa, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
-		this.mozo = mozo;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.nroTicket = count.incrementAndGet();
 		this.metodoDePago = "Efectivo";
 	}
 
+	
 
+	public Boolean getEnProceso() {
+		return enProceso;
+	}
+
+	public void setEnProceso(Boolean enProceso) {
+		this.enProceso = enProceso;
+	}
 
 	public Long getId() {
 		return id;

@@ -23,11 +23,11 @@ public class TicketDto {
 	private String metodoDePago;
 	private List<TicketProductoDto> ticketProductosDto;
 	private Integer descuento;
+	private Boolean enProceso;
 
-	public TicketDto(Mesa mesa, Mozo mozo, String nombreBar, String direccionBar) {
+	public TicketDto(Mesa mesa, String nombreBar, String direccionBar) {
 		super();
 		this.mesa = mesa;
-		this.mozo = mozo;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.ticketProductosDto = new ArrayList<TicketProductoDto>();
@@ -35,10 +35,10 @@ public class TicketDto {
 	
 	public TicketDto(Ticket ticket) {
 		this(ticket.getMesa(),
-			 ticket.getMozo(),
 			 ticket.getNombreBar(),
 			 ticket.getDireccionBar());
 			this.id = ticket.getId();
+			this.mozo = ticket.getMozo();
 			this.nroTicket = ticket.getNroTicket();
 			this.metodoDePago = ticket.getMetodoDePago();
 			this.fechaCreacion = ticket.getFechaCreacion();
@@ -46,6 +46,7 @@ public class TicketDto {
 			this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
 			this.importeTotal = ticket.getImporteTotal();
 			this.descuento = ticket.getDescuento();
+			this.enProceso = ticket.getEnProceso();
 	}
 	
 	public List<TicketProductoDto> getTicketProductosDto() {
@@ -58,6 +59,16 @@ public class TicketDto {
 
 	public Long getId() {
 		return id;
+	}
+
+	
+
+	public Boolean getEnProceso() {
+		return enProceso;
+	}
+
+	public void setEnProceso(Boolean enProceso) {
+		this.enProceso = enProceso;
 	}
 
 	public void setId(Long id) {

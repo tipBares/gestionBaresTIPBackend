@@ -1,9 +1,11 @@
 package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,9 +33,10 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public TicketDto create(TicketDto ticketDto) {
-		Ticket ticket = new Ticket(ticketDto.getMesa(), ticketDto.getMozo(), 
+		Ticket ticket = new Ticket(ticketDto.getMesa(),
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
+		ticket.setEnProceso(true);
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
 	}
@@ -48,17 +51,6 @@ public class TicketServiceImplem implements TicketService{
 			tickets.forEach(p -> ticketsDto.add(new TicketDto(p)));
 		}
 		this.ticketRepository.delete(ticket);
-		
-		return ticketsDto;
-	}
-  
-	@Override
-	public List<TicketDto> findByDate(Date fecha) {
-		List<Ticket> tickets = this.ticketRepository.findAllByFechaCreacion(fecha);
-		List<TicketDto> ticketsDto = new ArrayList<TicketDto>();
-		if(tickets != null) {
-			tickets.forEach(ticket -> ticketsDto.add(new TicketDto(ticket)));
-		}
 		
 		return ticketsDto;
 	}
@@ -138,13 +130,27 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public Page<Ticket> findAllPag(Pageable pageable) {
-		return this.ticketRepository.findAll(pageable);
+		
+		return this.ticketRepository.findByEnProceso(false, pageable);
+	}
+
+
+	@Override
+	public Page<Ticket> findByDate(Date fecha, Pageable pageable) {
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(fecha); 
+		c.add(Calendar.DATE, 1);	 
+		Page<Ticket> tickets = this.ticketRepository.findByFechaCreacion(fecha, c.getTime(), pageable);
+		return tickets;
 	}
 
 	@Override
-	public Page<Ticket> findByDate(LocalDate fecha, Pageable pageable) {
-		Page<Ticket> tickets = this.ticketRepository.findAllByFecha(fecha, pageable);
-		return tickets;
+	public TicketDto updateFinal(Long id) {
+		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
+		ticket.setFechaUltimaModificacion(new Date(System.currentTimeMillis()));
+		ticket.setEnProceso(false);
+		this.ticketRepository.save(ticket);
+		return new TicketDto(ticket);
 	}
 
 	

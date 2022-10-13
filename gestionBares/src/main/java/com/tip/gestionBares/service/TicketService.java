@@ -13,7 +13,7 @@ import com.tip.gestionBares.model.Ticket;
 public interface TicketService {
 	public TicketDto create(TicketDto ticketDto);
 	public List<TicketDto> delete(Long id);
-	public List<TicketDto> findByDate(Date fecha);
+	public Page<Ticket> findByDate(Date fecha, Pageable pageable);
 	public void generarImporteTotal(Long idTicket);
 	public TicketDto agregarProducto(TicketProductoDto ticketProductoDto);
 	public List<TicketDto> findAll();
@@ -21,5 +21,6 @@ public interface TicketService {
 	public TicketDto applyDiscount(Long id, Integer porcentaje);
 	public TicketDto update(TicketDto ticketDto, Long id);
 	public TicketDto getTicketById (Long id);
+	public TicketDto updateFinal( Long id);
 	
 }
