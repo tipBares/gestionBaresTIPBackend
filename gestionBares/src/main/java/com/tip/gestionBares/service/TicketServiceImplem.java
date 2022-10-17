@@ -44,6 +44,7 @@ public class TicketServiceImplem implements TicketService{
 		Mesa mesa = mesaRepository.findById(idMesa).orElse(null);
 		ticket.setMesa(mesa);
 		ticket.setEnProceso(true);
+		ticket.getMesa().setTicket(ticket);
 		mesa.setAbierta(true);
 		this.ticketRepository.saveAndFlush(ticket);
 
