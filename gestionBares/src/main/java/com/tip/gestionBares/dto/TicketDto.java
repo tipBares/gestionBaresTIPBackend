@@ -25,16 +25,15 @@ public class TicketDto {
 	private Integer descuento;
 	private Boolean enProceso;
 
-	public TicketDto(Mesa mesa, String nombreBar, String direccionBar) {
+	public TicketDto(String nombreBar, String direccionBar) {
 		super();
-		this.mesa = mesa;
-		this.nombreBar = nombreBar;
+				this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.ticketProductosDto = new ArrayList<TicketProductoDto>();
 	}
 	
 	public TicketDto(Ticket ticket) {
-		this(ticket.getMesa(),
+		this(
 			 ticket.getNombreBar(),
 			 ticket.getDireccionBar());
 			this.id = ticket.getId();
@@ -47,6 +46,7 @@ public class TicketDto {
 			this.importeTotal = ticket.getImporteTotal();
 			this.descuento = ticket.getDescuento();
 			this.enProceso = ticket.getEnProceso();
+			this.mesa = ticket.getMesa();
 	}
 	
 	public List<TicketProductoDto> getTicketProductosDto() {

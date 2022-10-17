@@ -67,9 +67,8 @@ public class Ticket implements Serializable{
 		super();
 	}
 
-	public Ticket(Mesa mesa, String nombreBar, String direccionBar) {
+	public Ticket(String nombreBar, String direccionBar) {
 		super();
-		this.mesa = mesa;
 		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.nroTicket = count.incrementAndGet();

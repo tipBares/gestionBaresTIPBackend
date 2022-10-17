@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
+import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Ticket;
 import com.tip.gestionBares.model.TicketProducto;
+import com.tip.gestionBares.repositories.MesaRepository;
 import com.tip.gestionBares.repositories.TicketProductoRepository;
 import com.tip.gestionBares.repositories.TicketRepository;
 
@@ -26,20 +28,27 @@ public class TicketServiceImplem implements TicketService{
 	private TicketRepository ticketRepository;
 	@Autowired
 	private TicketProductoRepository ticketProductoRepository;
+	@Autowired
+	private MesaRepository mesaRepository;
 	
 	public TicketServiceImplem() {
 		
 	}
 
 	@Override
-	public TicketDto create(TicketDto ticketDto) {
-		Ticket ticket = new Ticket(ticketDto.getMesa(),
+	public TicketDto create(TicketDto ticketDto, Long idMesa) {
+		System.out.println(ticketDto.getMesa()+ "  npombre:  "+ ticketDto.getNombreBar()+ "  direccion:  "+ ticketDto.getDireccionBar());
+		Ticket ticket = new Ticket(
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
-		ticket.getMesa().setTicket(ticket);
-		ticket.getMesa().setAbierta(true);
+		Mesa mesa = mesaRepository.findById(idMesa).orElse(null);
+		ticket.setMesa(mesa);
 		ticket.setEnProceso(true);
-		this.ticketRepository.save(ticket);
+		mesa.setAbierta(true);
+		this.ticketRepository.saveAndFlush(ticket);
+
+		System.out.println("HOLA SOY EL TICKET"+ ticket.getId());
+
 		return new TicketDto(ticket);
 	}
 	

@@ -11,7 +11,7 @@ import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Ticket;
 
 public interface TicketService {
-	public TicketDto create(TicketDto ticketDto);
+	public TicketDto create(TicketDto ticketDto, Long idMesa);
 	public List<TicketDto> delete(Long id);
 	public Page<Ticket> findByDate(Date fecha, Pageable pageable);
 	public void generarImporteTotal(Long idTicket);
