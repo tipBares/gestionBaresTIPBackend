@@ -76,8 +76,6 @@ public class Ticket implements Serializable{
 		this.metodoDePago = "Efectivo";
 	}
 
-	
-
 	public Boolean getEnProceso() {
 		return enProceso;
 	}

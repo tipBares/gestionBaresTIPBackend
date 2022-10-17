@@ -36,6 +36,8 @@ public class TicketServiceImplem implements TicketService{
 		Ticket ticket = new Ticket(ticketDto.getMesa(),
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
+		ticket.getMesa().setTicket(ticket);
+		ticket.getMesa().setAbierta(true);
 		ticket.setEnProceso(true);
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
@@ -149,6 +151,7 @@ public class TicketServiceImplem implements TicketService{
 		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
 		ticket.setFechaUltimaModificacion(new Date(System.currentTimeMillis()));
 		ticket.setEnProceso(false);
+		ticket.getMesa().setAbierta(false);
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
 	}
