@@ -37,7 +37,7 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public TicketDto create(TicketDto ticketDto, Long idMesa) {
-		System.out.println(ticketDto.getMesa()+ "  npombre:  "+ ticketDto.getNombreBar()+ "  direccion:  "+ ticketDto.getDireccionBar());
+		
 		Ticket ticket = new Ticket(
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
@@ -49,7 +49,7 @@ public class TicketServiceImplem implements TicketService{
 		this.ticketRepository.saveAndFlush(ticket);
 
 		System.out.println("HOLA SOY EL TICKET"+ ticket.getId());
-
+		//System.out.println( "TODO: " + ticketDto.getMesa().getId()+ "  npombre:  "+ ticketDto.getNombreBar()+ "  direccion:  "+ ticketDto.getDireccionBar());
 		return new TicketDto(ticket);
 	}
 	

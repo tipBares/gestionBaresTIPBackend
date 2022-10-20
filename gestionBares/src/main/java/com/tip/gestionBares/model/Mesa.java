@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="Mesa")
 @Table(name="mesa")
 public class Mesa implements Serializable{
@@ -27,7 +29,7 @@ public class Mesa implements Serializable{
 	
 	@Column(name = "abierta")
 	private Boolean abierta;
-	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
 	private Ticket ticket;
@@ -39,14 +41,11 @@ public class Mesa implements Serializable{
 		super();
 	}
 
-	public Mesa(Boolean abierta, Ticket ticket, Integer nroMesa) {
+	public Mesa(Boolean abierta, Integer nroMesa) {
 		super();
 		this.abierta = abierta;
-		this.ticket = ticket;
 		this.nroMesa = nroMesa;
 	}
-
-	//Preguntar si es necesario tener definir siempre hasCode y equals
 	
 	public Long getId() {
 		return id;

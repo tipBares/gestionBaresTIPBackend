@@ -23,7 +23,6 @@ public class MesaServiceImplem implements MesaService{
 	public MesaDto create(MesaDto mesaDto) {
 		Mesa mesa = new Mesa(
 				 mesaDto.getAbierta(),
-				 mesaDto.getTicket(),
 				 mesaDto.getNroMesa()
 				 );
 		this.mesaRepository.save(mesa);

@@ -13,17 +13,16 @@ public class MesaDto {
 	
 	private Integer nroMesa;
 
-	public MesaDto(Boolean abierta, Ticket ticket, Integer nroMesa) {
+	public MesaDto(Boolean abierta, Integer nroMesa) {
 		super();
 		this.abierta = abierta;
-		this.ticket = ticket;
 		this.nroMesa = nroMesa;
 	}
 
 	public MesaDto(Mesa mesa) {
 		this(mesa.getAbierta(),
-			 mesa.getTicket(),
 			 mesa.getNroMesa());
+		this.ticket = mesa.getTicket();
 		this.id = mesa.getId();
 	}
 

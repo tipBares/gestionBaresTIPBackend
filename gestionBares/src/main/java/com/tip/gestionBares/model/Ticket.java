@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity(name="Ticket")
 @Table(name="ticket")
@@ -32,7 +34,9 @@ public class Ticket implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@JsonBackReference
 	@OneToOne(mappedBy="ticket", cascade=CascadeType.ALL)
+	@JoinColumn(name = "mesa_id")//si anda se queda, sino vuela
 	private Mesa mesa;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "mozo_id")
