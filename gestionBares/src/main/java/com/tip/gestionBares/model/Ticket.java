@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity(name="Ticket")
@@ -33,37 +33,60 @@ public class Ticket implements Serializable{
 	private static final AtomicInteger count = new AtomicInteger(0); 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	 
 	private Long id;
-	@JsonBackReference
-	@OneToOne(mappedBy="ticket", cascade=CascadeType.ALL)
-	@JoinColumn(name = "mesa_id")//si anda se queda, sino vuela
+	@OneToOne(cascade=CascadeType.ALL)
+	 
+
 	private Mesa mesa;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "mozo_id")
+	 
+
 	private Mozo mozo;
 	@Column(name = "fecha_creacion")
 	@Basic
 	@javax.persistence.Temporal(TemporalType.TIMESTAMP)
+	 
+
 	private java.util.Date fechaCreacion = new Date(System.currentTimeMillis());
 	@Column(name = "fecha_ultima_modificacion")
 	@Basic
 	@javax.persistence.Temporal(TemporalType.TIMESTAMP)
+	 
+
 	private java.util.Date fechaUltimaModificacion = new Date(System.currentTimeMillis());
 	@Column(name = "nombre_bar")
+	 
+
 	private String nombreBar;
 	@Column(name = "direccion_bar")
+	 
+
 	private String direccionBar;
 	@Column(name = "nro_ticket")
+	 
+
 	private Integer nroTicket;
 	@Column(name = "importe_total")
+	 
+
 	private Double importeTotal;
 	@Column(name = "metodo_de_pago")
+	 
+
 	private String metodoDePago;
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "ticket")
+	 
+
 	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();
 	@Column(name = "descuento")
+	 
+
 	private Integer descuento;
 	@Column(name = "en_proceso")
+	 
+
 	private Boolean enProceso;
 	
 	

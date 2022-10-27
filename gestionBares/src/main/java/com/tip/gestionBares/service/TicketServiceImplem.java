@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,20 +36,21 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public TicketDto create(TicketDto ticketDto, Long idMesa) {
-		
+		System.out.println("HOLA SOY EL TICKET ENTRO EN CREATE"+ ticketDto + "mesa" + idMesa );
+
 		Ticket ticket = new Ticket(
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
+		System.out.println("HOLA SOY EL TICKET ID"+ ticket.getId());
 		Mesa mesa = mesaRepository.findById(idMesa).orElse(null);
 		ticket.setMesa(mesa);
 		ticket.setEnProceso(true);
-		ticket.getMesa().setTicket(ticket);
+		
 		mesa.setAbierta(true);
 		this.ticketRepository.saveAndFlush(ticket);
-
-		System.out.println("HOLA SOY EL TICKET"+ ticket.getId());
-		//System.out.println( "TODO: " + ticketDto.getMesa().getId()+ "  npombre:  "+ ticketDto.getNombreBar()+ "  direccion:  "+ ticketDto.getDireccionBar());
-		return new TicketDto(ticket);
+		mesa.setIdTicket(ticket.getId());
+		this.mesaRepository.saveAndFlush(mesa);
+		return  new TicketDto(ticket);
 	}
 	
 	@Override

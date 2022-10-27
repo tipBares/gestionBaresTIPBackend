@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity(name="Mesa")
 @Table(name="mesa")
 public class Mesa implements Serializable{
@@ -29,10 +27,10 @@ public class Mesa implements Serializable{
 	
 	@Column(name = "abierta")
 	private Boolean abierta;
-	@JsonBackReference
-	@OneToOne
-	@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
-	private Ticket ticket;
+	//@OneToOne
+	//@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
+	@Column(name = "id_ticket")
+	private Long idTicket;
 	
 	@Column(name = "nro_mesa")
 	private Integer nroMesa;
@@ -63,12 +61,12 @@ public class Mesa implements Serializable{
 		this.abierta = abierta;
 	}
 
-	public Ticket getTicket() {
-		return ticket;
+	public Long getIdTicket() {
+		return idTicket;
 	}
 
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
+	public void setIdTicket(Long idTicket) {
+		this.idTicket = idTicket;
 	}
 
 	public Integer getNroMesa() {
