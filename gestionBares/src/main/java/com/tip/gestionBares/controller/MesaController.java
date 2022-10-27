@@ -1,6 +1,6 @@
 package com.tip.gestionBares.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +32,20 @@ public class MesaController {
 		
 	}
 	
-	@GetMapping(value = "/get")
-	public ResponseEntity<ArrayList<MesaDto>> getMesas() throws NotFoundException{
-		ArrayList<MesaDto> mesasDto = this.mesaService.getMesas();
-		if(mesasDto.size() == 0) {
+	@GetMapping
+	public ResponseEntity<List<MesaDto>> getMesas() throws NotFoundException{
+		List<MesaDto> mesasDto = this.mesaService.getMesas();
+		
+		return new ResponseEntity<List<MesaDto>>(mesasDto, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<MesaDto> getById(@PathVariable("id") Long id) throws NotFoundException{
+		MesaDto mesaDto = this.mesaService.getById(id);
+		if(mesaDto == null) {
 			throw new NotFoundException();
 		}
-		return new ResponseEntity<ArrayList<MesaDto>>(mesasDto, HttpStatus.OK);
-		
+		return new ResponseEntity<MesaDto>(mesaDto, HttpStatus.OK);
 	}
 }
