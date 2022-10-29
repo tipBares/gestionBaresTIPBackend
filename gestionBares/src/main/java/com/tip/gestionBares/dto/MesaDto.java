@@ -1,7 +1,6 @@
 package com.tip.gestionBares.dto;
 
 import com.tip.gestionBares.model.Mesa;
-import com.tip.gestionBares.model.Ticket;
 
 public class MesaDto {
 	

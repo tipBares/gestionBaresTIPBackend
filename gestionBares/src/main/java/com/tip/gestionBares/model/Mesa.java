@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="Mesa")
 @Table(name="mesa")
 public class Mesa implements Serializable{
@@ -62,12 +64,14 @@ public class Mesa implements Serializable{
 		this.abierta = abierta;
 	}
 
-	public Long getIdTicket() {
-		return idTicket;
+	
+
+	public Ticket getTicket() {
+		return ticket;
 	}
 
-	public void setIdTicket(Long idTicket) {
-		this.idTicket = idTicket;
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 
 	public Integer getNroMesa() {
