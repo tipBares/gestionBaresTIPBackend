@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tip.gestionBares.dto.MesaDto;
 import com.tip.gestionBares.service.MesaService;
@@ -33,19 +34,20 @@ public class MesaController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<MesaDto>> getMesas() throws NotFoundException{
-		List<MesaDto> mesasDto = this.mesaService.getMesas();
-		
-		return new ResponseEntity<List<MesaDto>>(mesasDto, HttpStatus.OK);
-		
+	public ResponseEntity<ArrayList<MesaDto>> getMesas() throws NotFoundException{
+		ArrayList<MesaDto> mesasDto = this.mesaService.getMesas();	
+		return new ResponseEntity<ArrayList<MesaDto>>(mesasDto, HttpStatus.OK);
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<MesaDto> getById(@PathVariable("id") Long id) throws NotFoundException{
-		MesaDto mesaDto = this.mesaService.getById(id);
+	public ResponseEntity<MesaDto> findById(@PathVariable(value = "id") Long id) throws NotFoundException {
+		MesaDto mesaDto = this.mesaService.getMesaById(id);
 		if(mesaDto == null) {
-			throw new NotFoundException();
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "entity not found"
+					);
+		} else {
+			return new ResponseEntity<MesaDto>(mesaDto, HttpStatus.OK);
 		}
-		return new ResponseEntity<MesaDto>(mesaDto, HttpStatus.OK);
 	}
 }

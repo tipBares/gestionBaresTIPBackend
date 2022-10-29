@@ -32,7 +32,7 @@ public class MozoController {
   @Autowired
 	private MozoService mozoService;
 
-	@GetMapping("/All")
+	@GetMapping()
 	public ResponseEntity<List<MozoDto>> findAll() throws NotFoundException {
 		List<MozoDto> mozosDto = this.mozoService.findAll();
 		if (mozosDto.size() <= 0) {

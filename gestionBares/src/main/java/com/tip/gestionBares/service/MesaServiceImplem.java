@@ -1,11 +1,9 @@
 package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.MesaDto;
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.repositories.MesaRepository;
@@ -42,11 +40,13 @@ public class MesaServiceImplem implements MesaService{
 	}
 
 	@Override
-	public MesaDto getById(Long id) {
-		
-		Mesa mesa = this.mesaRepository.findById(id).orElse(null);
-		MesaDto mesaDto = new MesaDto(mesa);
+	public MesaDto getMesaById(Long id) {
+		Optional<Mesa> mesa = this.mesaRepository.findById(id);
+		if(mesa.isPresent()) {
+		MesaDto mesaDto = new MesaDto(mesa.get());
 		return mesaDto;
+		} else {
+			return null;
+		}
 	}
-
 }

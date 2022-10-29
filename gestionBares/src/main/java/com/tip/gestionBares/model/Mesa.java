@@ -27,11 +27,12 @@ public class Mesa implements Serializable{
 	
 	@Column(name = "abierta")
 	private Boolean abierta;
-	//@OneToOne
-	//@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
-	@Column(name = "id_ticket")
-	private Long idTicket;
-	
+  
+	@JsonBackReference
+	@OneToOne
+	@JoinColumn(name = "id_ticket", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
+	private Ticket ticket;
+
 	@Column(name = "nro_mesa")
 	private Integer nroMesa;
 

@@ -3,12 +3,10 @@ package com.tip.gestionBares.service;
 import java.util.List;
 
 import com.tip.gestionBares.dto.MesaDto;
+import com.tip.gestionBares.dto.TicketDto;
 
 public interface MesaService {
-	
 	public MesaDto create(MesaDto mesaDto);
-	
-	public List<MesaDto> getMesas();
-	
-	public MesaDto getById(Long id);
+	public ArrayList<MesaDto> getMesas();
+	public MesaDto getMesaById (Long id);
 }

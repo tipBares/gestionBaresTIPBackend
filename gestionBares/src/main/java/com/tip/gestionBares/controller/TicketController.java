@@ -134,4 +134,13 @@ public class TicketController {
 		}
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
 	}
+	
+	@PutMapping("{id}/mozos/{idMozo}")
+	public ResponseEntity<TicketDto> updateMozo(@PathVariable("id") Long id, @PathVariable("idMozo") Long idMozo) throws NotFoundException {
+		TicketDto ticketDto = this.ticketService.updateMozo(id, idMozo);
+		if(ticketDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
+	} 
 }

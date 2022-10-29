@@ -21,6 +21,7 @@ public interface TicketService {
 	public TicketDto applyDiscount(Long id, Integer porcentaje);
 	public TicketDto update(TicketDto ticketDto, Long id);
 	public TicketDto getTicketById (Long id);
-	public TicketDto updateFinal( Long id);
+	public TicketDto updateFinal(Long id);
+	public TicketDto updateMozo(Long idTicket, Long idMozo);
 	
 }

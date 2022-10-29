@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Mesa;
+import com.tip.gestionBares.model.Mozo;
 import com.tip.gestionBares.model.Ticket;
 import com.tip.gestionBares.model.TicketProducto;
 import com.tip.gestionBares.repositories.MesaRepository;
+import com.tip.gestionBares.repositories.MozoRepository;
 import com.tip.gestionBares.repositories.TicketProductoRepository;
 import com.tip.gestionBares.repositories.TicketRepository;
 
@@ -29,7 +31,8 @@ public class TicketServiceImplem implements TicketService{
 	private TicketProductoRepository ticketProductoRepository;
 	@Autowired
 	private MesaRepository mesaRepository;
-	
+	@Autowired
+	private MozoRepository mozoRepository;
 	public TicketServiceImplem() {
 		
 	}
@@ -166,11 +169,13 @@ public class TicketServiceImplem implements TicketService{
 		return new TicketDto(ticket);
 	}
 
-	
-
-	
-
-	
-
+	@Override
+	public TicketDto updateMozo(Long idTicket, Long idMozo) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		Mozo mozoNuevo = this.mozoRepository.findById(idMozo).orElse(null);
+		ticket.setMozo(mozoNuevo);
+		this.ticketRepository.save(ticket);
+		return new TicketDto(ticket);
+	}
 		
 }
