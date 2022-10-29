@@ -9,7 +9,7 @@ public class MesaDto {
 	
 	private Boolean abierta;
 	
-	private Ticket ticket;
+	private TicketDto ticket;
 	
 	private Integer nroMesa;
 
@@ -22,7 +22,10 @@ public class MesaDto {
 	public MesaDto(Mesa mesa) {
 		this(mesa.getAbierta(),
 			 mesa.getNroMesa());
-		this.ticket = mesa.getTicket();
+		if(mesa.getTicket() != null) {
+			this.ticket = new TicketDto (mesa.getTicket());
+		}
+		
 		this.id = mesa.getId();
 	}
 
@@ -42,11 +45,11 @@ public class MesaDto {
 		this.abierta = abierta;
 	}
 
-	public Ticket getTicket() {
+	public TicketDto getTicket() {
 		return ticket;
 	}
 
-	public void setTicket(Ticket ticket) {
+	public void setTicket(TicketDto ticket) {
 		this.ticket = ticket;
 	}
 

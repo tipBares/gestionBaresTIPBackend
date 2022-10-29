@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tip.gestionBares.dto.MesaDto;
 import com.tip.gestionBares.service.MesaService;
@@ -31,13 +33,26 @@ public class MesaController {
 		
 	}
 	
-	@GetMapping(value = "/get")
+	@GetMapping
 	public ResponseEntity<ArrayList<MesaDto>> getMesas() throws NotFoundException{
 		ArrayList<MesaDto> mesasDto = this.mesaService.getMesas();
 		if(mesasDto.size() == 0) {
 			throw new NotFoundException();
 		}
 		return new ResponseEntity<ArrayList<MesaDto>>(mesasDto, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<MesaDto> findById(@PathVariable(value = "id") Long id) throws NotFoundException {
+		MesaDto mesaDto = this.mesaService.getMesaById(id);
+		if(mesaDto == null) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "entity not found"
+					);
+		} else {
+			return new ResponseEntity<MesaDto>(mesaDto, HttpStatus.OK);
+		}
 		
 	}
 }

@@ -31,7 +31,7 @@ public class Mesa implements Serializable{
 	private Boolean abierta;
 	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name = "ticket_id", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
+	@JoinColumn(name = "id_ticket", nullable=true ,foreignKey=@ForeignKey(name="mesa_id_fk"))
 	private Ticket ticket;
 	
 	@Column(name = "nro_mesa")
