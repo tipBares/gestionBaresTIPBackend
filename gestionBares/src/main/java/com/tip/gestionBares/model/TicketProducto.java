@@ -1,5 +1,6 @@
 package com.tip.gestionBares.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,13 @@ import javax.persistence.Table;
 @Entity(name = "TicketProducto")
 @Table(name = "ticketProducto")
 @IdClass(value = TicketProductoId.class)
-public class TicketProducto {
+public class TicketProducto implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long idTicket;
 

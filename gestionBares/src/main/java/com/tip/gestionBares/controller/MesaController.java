@@ -1,6 +1,6 @@
 package com.tip.gestionBares.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -35,12 +35,8 @@ public class MesaController {
 	
 	@GetMapping
 	public ResponseEntity<ArrayList<MesaDto>> getMesas() throws NotFoundException{
-		ArrayList<MesaDto> mesasDto = this.mesaService.getMesas();
-		if(mesasDto.size() == 0) {
-			throw new NotFoundException();
-		}
+		ArrayList<MesaDto> mesasDto = this.mesaService.getMesas();	
 		return new ResponseEntity<ArrayList<MesaDto>>(mesasDto, HttpStatus.OK);
-		
 	}
 	
 	@GetMapping("{id}")
@@ -53,6 +49,5 @@ public class MesaController {
 		} else {
 			return new ResponseEntity<MesaDto>(mesaDto, HttpStatus.OK);
 		}
-		
 	}
 }

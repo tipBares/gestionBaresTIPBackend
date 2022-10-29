@@ -2,10 +2,8 @@ package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.MesaDto;
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.repositories.MesaRepository;
@@ -31,12 +29,13 @@ public class MesaServiceImplem implements MesaService{
 	}
 
 	@Override
-	public ArrayList<MesaDto> getMesas() {
-		ArrayList<Mesa> mesas = (ArrayList<Mesa>) this.mesaRepository.findAll();
-		ArrayList<MesaDto> mesasDto = new ArrayList<MesaDto>();
+	public List<MesaDto> getMesas() {
+		List<Mesa> mesas = (List<Mesa>) this.mesaRepository.findAll();
+		List<MesaDto> mesasDto = new ArrayList<MesaDto>();
 		if(mesas != null) {
 			mesas.forEach(m -> mesasDto.add(new MesaDto(m)));
 		}
+
 		return mesasDto;
 	}
 
@@ -50,5 +49,4 @@ public class MesaServiceImplem implements MesaService{
 			return null;
 		}
 	}
-
 }

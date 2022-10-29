@@ -6,11 +6,8 @@ import com.tip.gestionBares.model.Ticket;
 public class MesaDto {
 	
 	private Long id;
-	
 	private Boolean abierta;
-	
 	private TicketDto ticket;
-	
 	private Integer nroMesa;
 
 	public MesaDto(Boolean abierta, Integer nroMesa) {
@@ -22,10 +19,10 @@ public class MesaDto {
 	public MesaDto(Mesa mesa) {
 		this(mesa.getAbierta(),
 			 mesa.getNroMesa());
+
 		if(mesa.getTicket() != null) {
 			this.ticket = new TicketDto (mesa.getTicket());
 		}
-		
 		this.id = mesa.getId();
 	}
 
@@ -60,6 +57,5 @@ public class MesaDto {
 	public void setNroMesa(Integer nroMesa) {
 		this.nroMesa = nroMesa;
 	}
-	
 	
 }
