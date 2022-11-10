@@ -143,4 +143,13 @@ public class TicketController {
 		}
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
 	} 
+	
+	@PutMapping("{id}/metodoDePago")
+	public ResponseEntity<TicketDto> updateMetodoDePago(@PathVariable("id") Long id, @RequestParam String metodoDePago) throws NotFoundException {
+		TicketDto ticketDto = this.ticketService.updateMetodoDePago(id, metodoDePago);
+		if(ticketDto == null) {
+			throw new NotFoundException();
+		}
+		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
+	} 
 }

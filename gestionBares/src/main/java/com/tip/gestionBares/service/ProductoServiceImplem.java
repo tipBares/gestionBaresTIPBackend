@@ -42,12 +42,25 @@ public class ProductoServiceImplem implements ProductoService {
 	}
 
 	@Override
-	public Page<Producto> finByName(String nombreProducto, Pageable pageable) {
+	public Page<Producto> findByName(String nombreProducto, Pageable pageable) {
 		Page<Producto> productos = this.productoRepository.findByNombre(nombreProducto, pageable);
 		
 		return productos;
 	}
 
+	@Override
+	public List<ProductoDto> findByNameAll(String nombreProducto) {
+		List<Producto> productos = this.productoRepository.findByNombre(nombreProducto);
+		
+		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
+		
+		if(productos != null) {
+			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
+		}
+		
+		return productosDto;
+	}
+	
 	@Override
 	public ProductoDto update(ProductoDto productoDto, Long id, Long idCategoria) {
 		Producto producto = this.productoRepository.findById(id).orElse(null);
@@ -64,6 +77,14 @@ public class ProductoServiceImplem implements ProductoService {
 	public Page<Producto> findByCategory(Long idCategoria, Pageable pageable){
 		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
 		Page<Producto> productos = this.productoRepository.findByCategoria(categoria, pageable);
+		
+		return productos;
+	}
+	
+	@Override
+	public List<ProductoDto> findByCategoryAll(Long idCategoria) {
+		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
+		List<ProductoDto> productos = this.productoRepository.findByCategoria(categoria);
 		
 		return productos;
 	}
@@ -105,5 +126,9 @@ public class ProductoServiceImplem implements ProductoService {
 		ProductoDto productoDto = new ProductoDto(producto);
 		return productoDto;
 	}
+
+	
+
+	
 
 }

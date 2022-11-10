@@ -46,9 +46,15 @@ public class ProductoController {
 			@PathVariable(value = "pag" ) int page,
             @RequestParam(defaultValue = "7") int size,
             @RequestParam(defaultValue = "nombre") String order) throws NotFoundException{
-		Page<Producto> productos = this.productoService.finByName(nombre, PageRequest.of(page, size, Sort.by(order)));
+		Page<Producto> productos = this.productoService.findByName(nombre, PageRequest.of(page, size, Sort.by(order)));
 		
 		return new ResponseEntity<Page<Producto>>(productos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/nombre")
+	public ResponseEntity<List<ProductoDto>> findByName(@RequestParam String nombre) throws NotFoundException{
+		List<ProductoDto> productos = this.productoService.findByNameAll(nombre);
+		return new ResponseEntity<List<ProductoDto>>(productos, HttpStatus.OK);
 	}
 	
 	@PutMapping("{id}/{idCategoria}")
@@ -70,6 +76,15 @@ public class ProductoController {
 		Page<Producto> productos = this.productoService.findByCategory(idCategoria, PageRequest.of(page, size, Sort.by(order)));
 		
 		return new ResponseEntity<Page<Producto>>(productos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/categoria/{id}")
+	public ResponseEntity<List<ProductoDto>> findBycategoryAll(
+			@PathVariable("id") Long idCategoria,
+            @RequestParam(defaultValue = "nombre") String order) throws NotFoundException{
+		List<ProductoDto> productos = this.productoService.findByCategoryAll(idCategoria);
+		
+		return new ResponseEntity<List<ProductoDto>>(productos, HttpStatus.OK);
 	}
 	
 	@GetMapping("/productoAll")

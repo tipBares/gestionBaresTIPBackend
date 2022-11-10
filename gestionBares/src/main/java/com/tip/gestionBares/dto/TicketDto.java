@@ -20,6 +20,7 @@ public class TicketDto {
 	private String direccionBar;
 	private Integer nroTicket;
 	private Double importeTotal;
+	private Double importeFinal;
 	private String metodoDePago;
 	private List<TicketProductoDto> ticketProductosDto;
 	private Integer descuento;
@@ -43,9 +44,10 @@ public class TicketDto {
 			this.fechaCreacion = ticket.getFechaCreacion();
 			this.fechaUltimaModificacion = ticket.getFechaUltimaModificacion();
 			this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
-			this.importeTotal = ticket.getImporteTotal();
-			this.descuento = ticket.getDescuento();
 			this.enProceso = ticket.getEnProceso();
+			this.importeTotal = ticket.getImporteTotal(); 
+			this.importeFinal = ticket.getImporteFinal();
+			this.descuento = ticket.getDescuento();
 			this.mesa = ticket.getMesa();
 	}
 	
@@ -154,5 +156,15 @@ public class TicketDto {
 	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
 	}
+
+	public Double getImporteFinal() {
+		return importeFinal;
+	}
+
+	public void setImporteFinal(Double importeFinal) {
+		this.importeFinal = importeFinal;
+	}
+	
+	
 	
 }

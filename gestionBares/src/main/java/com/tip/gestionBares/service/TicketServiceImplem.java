@@ -51,7 +51,7 @@ public class TicketServiceImplem implements TicketService{
 		
 		mesa.setAbierta(true);
 		this.ticketRepository.saveAndFlush(ticket);
-		mesa.setIdTicket(ticket.getId());
+		mesa.setTicket(ticket);
 		this.mesaRepository.saveAndFlush(mesa);
 		return  new TicketDto(ticket);
 	}
@@ -113,9 +113,9 @@ public class TicketServiceImplem implements TicketService{
 	@Override
 	public TicketDto applyDiscount(Long id, Integer porcentaje) {
 		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
-		Double importeTotal = (Double) (ticket.getImporteTotal() - (ticket.getImporteTotal() * porcentaje / 100));
+		Double importeFinal = (Double) (ticket.getImporteTotal() - (ticket.getImporteTotal() * porcentaje / 100));
 		ticket.setDescuento(porcentaje);
-		ticket.setImporteTotal(importeTotal);
+		ticket.setImporteFinal(importeFinal);
 		this.ticketRepository.save(ticket);
 		TicketDto ticketDto = new TicketDto(ticket);
 		return ticketDto;
@@ -174,6 +174,14 @@ public class TicketServiceImplem implements TicketService{
 		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
 		Mozo mozoNuevo = this.mozoRepository.findById(idMozo).orElse(null);
 		ticket.setMozo(mozoNuevo);
+		this.ticketRepository.save(ticket);
+		return new TicketDto(ticket);
+	}
+
+	@Override
+	public TicketDto updateMetodoDePago(Long idTicket, String metodoDePago) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		ticket.setMetodoDePago(metodoDePago);
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
 	}
