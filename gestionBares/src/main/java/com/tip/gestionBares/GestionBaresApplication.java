@@ -11,4 +11,5 @@ public class GestionBaresApplication {
 		SpringApplication.run(GestionBaresApplication.class, args);
 	}
 
+
 }
