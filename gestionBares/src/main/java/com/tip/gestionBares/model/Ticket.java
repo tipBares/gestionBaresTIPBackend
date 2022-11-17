@@ -1,5 +1,6 @@
 package com.tip.gestionBares.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 
@@ -70,6 +72,7 @@ public class Ticket implements Serializable{
 	
 	@Column(name = "metodo_de_pago")
 	private String metodoDePago;
+
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "ticket")
 	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();

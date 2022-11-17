@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -94,7 +95,7 @@ public class TicketServiceImplem implements TicketService{
 	@Override
 	public void generarImporteTotal(Long idTicket) {
 		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
-		Double importeTotal = ticket.getTicketProductos().stream().mapToDouble(ticketProducto -> ticketProducto.getCantidad() * ticketProducto.getProducto().getPrecio()).sum();
+		Double importeTotal = (Double) ticket.getTicketProductos().stream().mapToDouble(ticketProducto -> ticketProducto.getCantidad() * ticketProducto.getProducto().getPrecio()).sum();
 		ticket.setImporteTotal(importeTotal);
 		this.ticketRepository.save(ticket);
 	}
@@ -149,14 +150,14 @@ public class TicketServiceImplem implements TicketService{
 		return this.ticketRepository.findByEnProceso(false, pageable);
 	}
 
-
 	@Override
 	public Page<Ticket> findByDate(Date fecha, Pageable pageable) {
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(fecha); 
 		c.add(Calendar.DATE, 1);	 
 		Page<Ticket> tickets = this.ticketRepository.findByFechaCreacion(fecha, c.getTime(), pageable);
-		return tickets;
+		Page<Ticket> ticketsFinales =  (Page<Ticket>) tickets.stream().filter(t -> t.getEnProceso() == false).collect(Collectors.toList());
+		return  tickets;
 	}
 
 	@Override
