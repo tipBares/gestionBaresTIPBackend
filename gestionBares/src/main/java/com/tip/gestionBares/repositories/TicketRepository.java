@@ -14,9 +14,7 @@ import com.tip.gestionBares.model.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>{
-
 	@Query(value = "from Ticket t where fechaCreacion BETWEEN :startDate AND :endDate")
 	public Page<Ticket> findByFechaCreacion(@Param("startDate")Date startDate,@Param("endDate")Date endDate, Pageable pageable);
 	public Page<Ticket> findByEnProceso(Boolean enProceso, Pageable pageable);
-
 }

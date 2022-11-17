@@ -24,4 +24,7 @@ public interface TicketService {
 	public TicketDto updateFinal(Long id);
 	public TicketDto updateMozo(Long idTicket, Long idMozo);
 	public TicketDto updateMetodoDePago(Long idTicket, String metodoDePago);
+	public TicketDto deleteTicketProducto(Long idTicket, Long idProducto);
+	public void updateMesa(Long idTicket, Long idMesa);
+	public void cancelarTicket(Long idTicket, Long idMesa);
 }
