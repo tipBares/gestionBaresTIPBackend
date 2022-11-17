@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity(name="Ticket")
@@ -68,7 +70,7 @@ public class Ticket implements Serializable{
 	
 	@Column(name = "metodo_de_pago")
 	private String metodoDePago;
-	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "ticket")
 	private List<TicketProducto> ticketProductos = new ArrayList<TicketProducto>();
 	

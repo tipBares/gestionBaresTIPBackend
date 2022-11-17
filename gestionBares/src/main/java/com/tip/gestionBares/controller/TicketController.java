@@ -152,4 +152,22 @@ public class TicketController {
 		}
 		return new ResponseEntity<TicketDto>(ticketDto, HttpStatus.OK);
 	} 
+	
+	@PutMapping("{idTicket}/mesas/{idMesa}")
+	public ResponseEntity<Void> updateMesa(@PathVariable(value = "idTicket") Long idTicket, @PathVariable(value = "idMesa") Long idMesa) throws NotFoundException {
+		this.ticketService.updateMesa(idTicket, idMesa);
+		return null;
+	} 
+	
+	@DeleteMapping("{idTicket}/productos/{idProducto}")
+	public ResponseEntity<TicketDto> deleteTicketProducto(@PathVariable(value = "idTicket") Long idTicket, @PathVariable(value = "idProducto") Long idProducto) throws NotFoundException {
+		TicketDto ticketsDto = this.ticketService.deleteTicketProducto(idTicket, idProducto);
+		return new ResponseEntity<TicketDto>(ticketsDto, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("{idTicket}/mesas/{idMesa}")
+	ResponseEntity<Void> cancelarTicket(@PathVariable(value = "idTicket") Long idTicket, @PathVariable(value = "idMesa") Long idMesa) throws NotFoundException {
+		this.ticketService.cancelarTicket(idTicket, idMesa);
+		return null;
+	}
 }

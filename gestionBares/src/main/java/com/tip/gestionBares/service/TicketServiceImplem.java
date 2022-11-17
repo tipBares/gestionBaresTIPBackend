@@ -185,5 +185,58 @@ public class TicketServiceImplem implements TicketService{
 		this.ticketRepository.save(ticket);
 		return new TicketDto(ticket);
 	}
+	
+	@Override
+	public TicketDto deleteTicketProducto(Long idTicket, Long idProducto) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		//ticket.getTicketProductos().removeIf(x -> x.getIdProducto() == idProducto);
+		TicketProducto ticketProducto = ticket.getTicketProductos().stream().filter(t -> t.getIdProducto() == idProducto).findAny().orElse(null);
+		ticket.getTicketProductos().remove(ticketProducto);
+		this.ticketProductoRepository.delete(ticketProducto);
+		this.ticketRepository.saveAndFlush(ticket);
+		return new TicketDto(ticket);
+	}
+
+	@Override
+	public void updateMesa(Long idTicket, Long idMesa) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		ticket.getMesa().setAbierta(false);
+		ticket.getMesa().setTicket(null);
+		this.mesaRepository.saveAndFlush(ticket.getMesa());
+		Mesa mesa = this.mesaRepository.findById(idMesa).orElse(null);
+		mesa.setAbierta(true);
+		mesa.setTicket(ticket);
+		this.mesaRepository.save(mesa);
 		
+		ticket.setMesa(mesa);
+		
+		this.ticketRepository.save(ticket);
+	}
+
+	public void deleteTicketProductoAux(Long idTicket, Long idProducto) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		//ticket.getTicketProductos().removeIf(x -> x.getIdProducto() == idProducto);
+		TicketProducto ticketProducto = ticket.getTicketProductos().stream().filter(t -> t.getIdProducto() == idProducto).findAny().orElse(null);
+		ticket.getTicketProductos().remove(ticketProducto);
+		this.ticketProductoRepository.delete(ticketProducto);
+		//this.ticketRepository.saveAndFlush(ticket);
+	}
+	
+	@Override
+	public void cancelarTicket(Long idTicket, Long idMesa) {
+		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
+		Mesa mesa = this.mesaRepository.findById(idMesa).orElse(null);
+		mesa.setAbierta(false);
+		mesa.setTicket(null);
+		this.mesaRepository.saveAndFlush(mesa);
+		while(ticket.getTicketProductos().size() > 0) {
+		ticket.getTicketProductos().stream().forEach(t -> this.deleteTicketProductoAux(idTicket, t.getIdProducto()));
+		}
+		
+		this.ticketRepository.delete(ticket);
+		this.ticketRepository.saveAndFlush(ticket);
+		
+	}
+	
+	
 }

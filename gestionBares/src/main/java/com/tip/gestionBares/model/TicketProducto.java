@@ -31,11 +31,11 @@ public class TicketProducto implements Serializable{
 
 	private int cantidad;
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade =CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "idTicket",  referencedColumnName = "id", foreignKey = @ForeignKey(name = "ticketProducto_ticket_id_fk"), insertable = false, updatable = false)
 	private Ticket ticket;
 
-	@ManyToOne(fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "idProducto", referencedColumnName = "id", foreignKey = @ForeignKey(name = "ticketProducto_producto_id_fk"), insertable = false, updatable = false)
 	private Producto producto;
 
