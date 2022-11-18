@@ -1,6 +1,5 @@
 package com.tip.gestionBares.model;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
