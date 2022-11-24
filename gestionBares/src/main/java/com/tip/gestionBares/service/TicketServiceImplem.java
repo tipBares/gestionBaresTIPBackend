@@ -156,7 +156,7 @@ public class TicketServiceImplem implements TicketService{
 		c.setTime(fecha); 
 		c.add(Calendar.DATE, 1);	 
 		Page<Ticket> tickets = this.ticketRepository.findByFechaCreacion(fecha, c.getTime(), pageable);
-		Page<Ticket> ticketsFinales =  (Page<Ticket>) tickets.stream().filter(t -> t.getEnProceso() == false).collect(Collectors.toList());
+		//Page<Ticket> ticketsFinales =  (Page<Ticket>) tickets.stream().filter(t -> t.getEnProceso() == false).collect(Collectors.toList());
 		return  tickets;
 	}
 
@@ -229,14 +229,20 @@ public class TicketServiceImplem implements TicketService{
 		Mesa mesa = this.mesaRepository.findById(idMesa).orElse(null);
 		mesa.setAbierta(false);
 		mesa.setTicket(null);
+		//acca seteamos el atributo cancelado en true
+		ticket.setCancelado(true);
 		this.mesaRepository.saveAndFlush(mesa);
-		while(ticket.getTicketProductos().size() > 0) {
+		this.ticketRepository.saveAndFlush(ticket);
+		/*while(ticket.getTicketProductos().size() > 0) {
 		ticket.getTicketProductos().stream().forEach(t -> this.deleteTicketProductoAux(idTicket, t.getIdProducto()));
 		}
-		
-		this.ticketRepository.delete(ticket);
-		this.ticketRepository.saveAndFlush(ticket);
-		
+		*/
+	}
+
+	@Override
+	public Page<Ticket> ticketsNoCancelados(Page<Ticket> tickets) {
+		Page<Ticket> ticketsNoCancelados = (Page<Ticket>) tickets.stream().filter(t -> t.getCancelado().equals(false)).collect(Collectors.toList());
+		return ticketsNoCancelados;
 	}
 	
 	
