@@ -25,10 +25,11 @@ public class TicketDto {
 	private List<TicketProductoDto> ticketProductosDto;
 	private Integer descuento;
 	private Boolean enProceso;
+	private Boolean cancelado;
 
 	public TicketDto(String nombreBar, String direccionBar) {
 		super();
-				this.nombreBar = nombreBar;
+		this.nombreBar = nombreBar;
 		this.direccionBar = direccionBar;
 		this.ticketProductosDto = new ArrayList<TicketProductoDto>();
 	}
@@ -45,6 +46,7 @@ public class TicketDto {
 			this.fechaUltimaModificacion = ticket.getFechaUltimaModificacion();
 			this.ticketProductosDto = ticket.getTicketProductos().stream().map(t -> new TicketProductoDto(t)).collect(Collectors.toList());
 			this.enProceso = ticket.getEnProceso();
+			this.cancelado = ticket.getCancelado();
 			this.importeTotal = ticket.getImporteTotal(); 
 			this.importeFinal = ticket.getImporteFinal();
 			this.descuento = ticket.getDescuento();
@@ -64,6 +66,14 @@ public class TicketDto {
 	}
 
 	
+
+	public Boolean getCancelado() {
+		return cancelado;
+	}
+
+	public void setCancelado(Boolean cancelado) {
+		this.cancelado = cancelado;
+	}
 
 	public Boolean getEnProceso() {
 		return enProceso;

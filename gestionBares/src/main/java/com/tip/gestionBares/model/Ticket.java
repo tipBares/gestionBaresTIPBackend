@@ -82,6 +82,8 @@ public class Ticket implements Serializable{
 	@Column(name = "en_proceso")
 	private Boolean enProceso;
 	
+	@Column(name = "cancelado")
+	private Boolean cancelado;
 	
 	public Ticket() {
 		super();
@@ -93,6 +95,15 @@ public class Ticket implements Serializable{
 		this.direccionBar = direccionBar;
 		this.nroTicket = count.incrementAndGet();
 		this.metodoDePago = "Efectivo";
+		this.cancelado = false;
+	}
+
+	public Boolean getCancelado() {
+		return cancelado;
+	}
+
+	public void setCancelado(Boolean cancelado) {
+		this.cancelado = cancelado;
 	}
 
 	public Boolean getEnProceso() {

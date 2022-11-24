@@ -165,9 +165,12 @@ public class TicketController {
 		return new ResponseEntity<TicketDto>(ticketsDto, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("{idTicket}/mesas/{idMesa}")
+	@PutMapping("cancelar/{idTicket}/mesas/{idMesa}")
 	ResponseEntity<Void> cancelarTicket(@PathVariable(value = "idTicket") Long idTicket, @PathVariable(value = "idMesa") Long idMesa) throws NotFoundException {
 		this.ticketService.cancelarTicket(idTicket, idMesa);
 		return null;
 	}
+	
+
+	
 }
