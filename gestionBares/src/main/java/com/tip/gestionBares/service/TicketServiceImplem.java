@@ -5,13 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Mesa;
@@ -40,16 +37,12 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public TicketDto create(TicketDto ticketDto, Long idMesa) {
-		System.out.println("HOLA SOY EL TICKET ENTRO EN CREATE"+ ticketDto + "mesa" + idMesa );
-
 		Ticket ticket = new Ticket(
 							ticketDto.getNombreBar(), ticketDto.getDireccionBar()
 							);
-		System.out.println("HOLA SOY EL TICKET ID"+ ticket.getId());
 		Mesa mesa = mesaRepository.findById(idMesa).orElse(null);
 		ticket.setMesa(mesa);
 		ticket.setEnProceso(true);
-		
 		mesa.setAbierta(true);
 		this.ticketRepository.saveAndFlush(ticket);
 		mesa.setTicket(ticket);
@@ -73,13 +66,9 @@ public class TicketServiceImplem implements TicketService{
 	
 	@Override
 	public TicketDto agregarProducto(TicketProductoDto ticketProductoDto) {
-		
 		TicketProducto ticketProducto = new TicketProducto( ticketProductoDto.getIdTicket(), ticketProductoDto.getIdProducto(), ticketProductoDto.getCantidad());
-			
 		Ticket ticket = this.ticketRepository.findById(ticketProductoDto.getIdTicket()).orElse(null);
-
 		Optional<TicketProducto> ticketProductoExist = ticket.getTicketProductos().stream().filter(x -> x.getIdProducto().equals(ticketProductoDto.getIdProducto())).findFirst();
-
 		if( ticketProductoExist.isPresent()) {
 			ticketProductoExist.get().setCantidad(ticketProductoDto.getCantidad() + ticketProductoExist.get().getCantidad());
 			this.ticketProductoRepository.saveAndFlush(ticketProductoExist.get());
@@ -87,7 +76,6 @@ public class TicketServiceImplem implements TicketService{
 			ticket.getTicketProductos().add(ticketProducto);
 			this.ticketProductoRepository.saveAndFlush(ticketProducto);
 		}
-		
 		TicketDto ticketDto = getTicketById(ticketProductoDto.getIdTicket());
 		return ticketDto;
 	}
@@ -104,7 +92,6 @@ public class TicketServiceImplem implements TicketService{
 	public List<TicketDto> findAll() {
 		List<Ticket> tickets = (List<Ticket>) this.ticketRepository.findAll();
 		List<TicketDto> ticketsDto = new ArrayList<TicketDto>();
-		
 		if(tickets != null) {
 			tickets.forEach(t -> ticketsDto.add(new TicketDto(t)));
 		}
@@ -146,7 +133,6 @@ public class TicketServiceImplem implements TicketService{
 
 	@Override
 	public Page<Ticket> findAllPag(Pageable pageable) {
-		
 		return this.ticketRepository.findByEnProceso(false, pageable);
 	}
 
@@ -156,7 +142,6 @@ public class TicketServiceImplem implements TicketService{
 		c.setTime(fecha); 
 		c.add(Calendar.DATE, 1);	 
 		Page<Ticket> tickets = this.ticketRepository.findByFechaCreacion(fecha, c.getTime(), pageable);
-		//Page<Ticket> ticketsFinales =  (Page<Ticket>) tickets.stream().filter(t -> t.getEnProceso() == false).collect(Collectors.toList());
 		return  tickets;
 	}
 
@@ -190,7 +175,6 @@ public class TicketServiceImplem implements TicketService{
 	@Override
 	public TicketDto deleteTicketProducto(Long idTicket, Long idProducto) {
 		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
-		//ticket.getTicketProductos().removeIf(x -> x.getIdProducto() == idProducto);
 		TicketProducto ticketProducto = ticket.getTicketProductos().stream().filter(t -> t.getIdProducto() == idProducto).findAny().orElse(null);
 		ticket.getTicketProductos().remove(ticketProducto);
 		this.ticketProductoRepository.delete(ticketProducto);
@@ -208,19 +192,15 @@ public class TicketServiceImplem implements TicketService{
 		mesa.setAbierta(true);
 		mesa.setTicket(ticket);
 		this.mesaRepository.save(mesa);
-		
 		ticket.setMesa(mesa);
-		
 		this.ticketRepository.save(ticket);
 	}
 
 	public void deleteTicketProductoAux(Long idTicket, Long idProducto) {
 		Ticket ticket = this.ticketRepository.findById(idTicket).orElse(null);
-		//ticket.getTicketProductos().removeIf(x -> x.getIdProducto() == idProducto);
 		TicketProducto ticketProducto = ticket.getTicketProductos().stream().filter(t -> t.getIdProducto() == idProducto).findAny().orElse(null);
 		ticket.getTicketProductos().remove(ticketProducto);
 		this.ticketProductoRepository.delete(ticketProducto);
-		//this.ticketRepository.saveAndFlush(ticket);
 	}
 	
 	@Override
@@ -229,21 +209,9 @@ public class TicketServiceImplem implements TicketService{
 		Mesa mesa = this.mesaRepository.findById(idMesa).orElse(null);
 		mesa.setAbierta(false);
 		mesa.setTicket(null);
-		//acca seteamos el atributo cancelado en true
 		ticket.setCancelado(true);
 		this.mesaRepository.saveAndFlush(mesa);
 		this.ticketRepository.saveAndFlush(ticket);
-		/*while(ticket.getTicketProductos().size() > 0) {
-		ticket.getTicketProductos().stream().forEach(t -> this.deleteTicketProductoAux(idTicket, t.getIdProducto()));
-		}
-		*/
 	}
-
-	@Override
-	public Page<Ticket> ticketsNoCancelados(Page<Ticket> tickets) {
-		Page<Ticket> ticketsNoCancelados = (Page<Ticket>) tickets.stream().filter(t -> t.getCancelado().equals(false)).collect(Collectors.toList());
-		return ticketsNoCancelados;
-	}
-	
 	
 }

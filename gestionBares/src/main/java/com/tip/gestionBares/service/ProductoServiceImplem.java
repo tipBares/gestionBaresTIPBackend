@@ -2,12 +2,10 @@ package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.ProductoDto;
 import com.tip.gestionBares.model.Categoria;
 import com.tip.gestionBares.model.Producto;
@@ -31,33 +29,25 @@ public class ProductoServiceImplem implements ProductoService {
 	public ProductoDto create(ProductoDto productoDto, Long idCategoria) {
 		Producto producto = new Producto(productoDto.getNombre(), productoDto.getPrecio(),
 				productoDto.getDescripcion());
-		
 		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
-		
 		producto.setCategoria(categoria);
-		
 		this.productoRepository.save(producto);
-
 		return new ProductoDto(producto);
 	}
 
 	@Override
 	public Page<Producto> findByName(String nombreProducto, Pageable pageable) {
 		Page<Producto> productos = this.productoRepository.findByNombre(nombreProducto, pageable);
-		
 		return productos;
 	}
 
 	@Override
 	public List<ProductoDto> findByNameAll(String nombreProducto) {
 		List<Producto> productos = this.productoRepository.findByNombre(nombreProducto);
-		
 		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
-		
 		if(productos != null) {
 			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
 		}
-		
 		return productosDto;
 	}
 	
@@ -77,7 +67,6 @@ public class ProductoServiceImplem implements ProductoService {
 	public Page<Producto> findByCategory(Long idCategoria, Pageable pageable){
 		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
 		Page<Producto> productos = this.productoRepository.findByCategoria(categoria, pageable);
-		
 		return productos;
 	}
 	
@@ -85,7 +74,6 @@ public class ProductoServiceImplem implements ProductoService {
 	public List<ProductoDto> findByCategoryAll(Long idCategoria) {
 		Categoria categoria = this.categoriaRepository.findById(idCategoria).orElse(null);
 		List<ProductoDto> productos = this.productoRepository.findByCategoria(categoria);
-		
 		return productos;
 	}
 
@@ -93,11 +81,9 @@ public class ProductoServiceImplem implements ProductoService {
 	public List<ProductoDto> findByAll() {
 		List<Producto> productos = (List<Producto>) this.productoRepository.findAll();
 		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
-		
 		if(productos != null) {
 			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
 		}
-		
 		return productosDto;
 	}
 
@@ -111,7 +97,6 @@ public class ProductoServiceImplem implements ProductoService {
 			productos.forEach(p -> productosDto.add(new ProductoDto(p)));
 		}
 		this.productoRepository.delete(producto);
-		
 		return productosDto;
 	}
 	
@@ -126,9 +111,4 @@ public class ProductoServiceImplem implements ProductoService {
 		ProductoDto productoDto = new ProductoDto(producto);
 		return productoDto;
 	}
-
-	
-
-	
-
 }

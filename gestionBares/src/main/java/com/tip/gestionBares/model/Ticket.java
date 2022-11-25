@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,20 +18,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 
 @Entity(name="Ticket")
 @Table(name="ticket")
 public class Ticket implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private static final AtomicInteger count = new AtomicInteger(0); 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -217,6 +211,5 @@ public class Ticket implements Serializable{
 	public void setImporteFinal(Double importeFinal) {
 		this.importeFinal = importeFinal;
 	}
-	
 	
 }

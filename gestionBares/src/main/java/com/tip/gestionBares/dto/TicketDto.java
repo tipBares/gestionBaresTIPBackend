@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Mozo;
 import com.tip.gestionBares.model.Ticket;
@@ -174,7 +173,4 @@ public class TicketDto {
 	public void setImporteFinal(Double importeFinal) {
 		this.importeFinal = importeFinal;
 	}
-	
-	
-	
 }

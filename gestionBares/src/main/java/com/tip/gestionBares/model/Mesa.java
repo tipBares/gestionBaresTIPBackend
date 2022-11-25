@@ -1,7 +1,6 @@
 package com.tip.gestionBares.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -11,16 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name="Mesa")
 @Table(name="mesa")
 public class Mesa implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -81,5 +76,4 @@ public class Mesa implements Serializable{
 	public void setNroMesa(Integer nroMesa) {
 		this.nroMesa = nroMesa;
 	}
-	
 }

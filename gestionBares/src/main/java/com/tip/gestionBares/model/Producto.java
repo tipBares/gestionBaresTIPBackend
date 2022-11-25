@@ -16,9 +16,6 @@ import javax.persistence.Table;
 
 public class Producto implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -89,5 +86,5 @@ public class Producto implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 }

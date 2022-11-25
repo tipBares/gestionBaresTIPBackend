@@ -1,7 +1,6 @@
 package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
-
 import com.tip.gestionBares.dto.MesaDto;
 
 public interface MesaService {
