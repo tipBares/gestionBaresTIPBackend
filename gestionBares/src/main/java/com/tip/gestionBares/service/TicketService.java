@@ -25,5 +25,4 @@ public interface TicketService {
 	public TicketDto deleteTicketProducto(Long idTicket, Long idProducto);
 	public void updateMesa(Long idTicket, Long idMesa);
 	public void cancelarTicket(Long idTicket, Long idMesa);
-	//public Page<Ticket> ticketsNoCancelados(Page<Ticket> tickets);
 }
