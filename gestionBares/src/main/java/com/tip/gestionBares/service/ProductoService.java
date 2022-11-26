@@ -1,10 +1,8 @@
 package com.tip.gestionBares.service;
 
 import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.tip.gestionBares.dto.ProductoDto;
 import com.tip.gestionBares.model.Producto;
 

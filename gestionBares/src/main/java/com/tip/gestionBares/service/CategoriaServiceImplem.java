@@ -2,12 +2,10 @@ package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.CategoriaDto;
 import com.tip.gestionBares.model.Categoria;
 import com.tip.gestionBares.repositories.CategoriaRepository;
@@ -18,8 +16,6 @@ public class CategoriaServiceImplem implements CategoriaService{
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	
-
 	public CategoriaServiceImplem() {
 		
 	}
@@ -35,7 +31,6 @@ public class CategoriaServiceImplem implements CategoriaService{
 	public List<CategoriaDto> getCategorias() {
 		List<Categoria> categorias = (List<Categoria>) this.categoriaRepository.findAll();
 		List<CategoriaDto> categoriasDto = new ArrayList<CategoriaDto>();
-		
 		if(categorias != null) {
 			categorias.forEach(t -> categoriasDto.add(new CategoriaDto(t)));
 		}
@@ -52,7 +47,6 @@ public class CategoriaServiceImplem implements CategoriaService{
 			categorias.forEach(p -> categoriasDto.add(new CategoriaDto(p)));
 		}
 		this.categoriaRepository.delete(categoria);
-		
 		return categoriasDto;
 	}
 
@@ -68,7 +62,6 @@ public class CategoriaServiceImplem implements CategoriaService{
 	public CategoriaDto getById(Long id) {
 		Categoria categoria = this.categoriaRepository.findById(id).orElse(null);
 		CategoriaDto categoriaDto = new CategoriaDto(categoria);
-		
 		return categoriaDto;
 	}
 

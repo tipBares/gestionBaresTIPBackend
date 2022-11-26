@@ -2,12 +2,10 @@ package com.tip.gestionBares.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tip.gestionBares.dto.MozoDto;
 import com.tip.gestionBares.model.Mozo;
 import com.tip.gestionBares.repositories.MozoRepository;
@@ -18,7 +16,7 @@ public class MozoServiceImplem implements MozoService{
 	@Autowired
 	private MozoRepository mozoRepository;
 	
-  public MozoServiceImplem() {
+	public MozoServiceImplem() {
 	
 	}
   
@@ -26,7 +24,6 @@ public class MozoServiceImplem implements MozoService{
 	public List<MozoDto> findAll() {
 		List<Mozo> mozos = (List<Mozo>) this.mozoRepository.findAll();
 		List<MozoDto> mozosDto = new ArrayList<MozoDto>();
-		
 		if(mozos != null) {
 			mozos.forEach(mozo -> mozosDto.add(new MozoDto(mozo)));
 		}

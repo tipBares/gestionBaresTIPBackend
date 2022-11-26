@@ -56,5 +56,4 @@ public class MesaDto {
 	public void setNroMesa(Integer nroMesa) {
 		this.nroMesa = nroMesa;
 	}
-	
 }

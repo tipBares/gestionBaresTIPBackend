@@ -5,13 +5,9 @@ import com.tip.gestionBares.model.Producto;
 public class ProductoDto {
 	
 	private Long id;
-	
 	private String nombre;
-	
 	private Double precio;
-	
 	private CategoriaDto categoriaDto;
-	
 	private String descripcion;
 
 	public ProductoDto(String nombre, Double precio, String descripcion) {

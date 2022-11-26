@@ -5,9 +5,8 @@ import com.tip.gestionBares.model.Categoria;
 public class CategoriaDto {
 
 	private Long id;
-	
 	private String nombre;
-
+	
 	public CategoriaDto() {}    
 	 
 	public CategoriaDto(String nombre) {
@@ -35,6 +34,4 @@ public class CategoriaDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 }

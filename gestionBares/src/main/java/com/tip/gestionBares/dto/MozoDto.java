@@ -3,10 +3,12 @@ package com.tip.gestionBares.dto;
 import com.tip.gestionBares.model.Mozo;
 
 public class MozoDto {
+	
 	private Long id;
 	private String nombre;
 	private String apellido;
 	private String nick;
+	
 	public MozoDto(String nombre, String apellido, String nick) {
 		super();
 		this.nombre = nombre;
@@ -43,6 +45,4 @@ public class MozoDto {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	
-	
 }

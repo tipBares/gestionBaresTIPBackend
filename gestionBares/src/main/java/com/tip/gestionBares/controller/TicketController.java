@@ -2,7 +2,6 @@ package com.tip.gestionBares.controller;
 
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Ticket;
@@ -170,7 +168,5 @@ public class TicketController {
 		this.ticketService.cancelarTicket(idTicket, idMesa);
 		return null;
 	}
-	
-
 	
 }

@@ -1,7 +1,6 @@
 package com.tip.gestionBares.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +11,7 @@ import javax.persistence.Table;
 @Entity(name="Categoria")
 @Table(name="categoria")
 public class Categoria implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,7 +29,6 @@ public class Categoria implements Serializable{
 	
 	public Categoria() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -50,6 +46,4 @@ public class Categoria implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 }

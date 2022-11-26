@@ -2,8 +2,6 @@ package com.tip.gestionBares.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -18,9 +16,6 @@ import javax.persistence.Table;
 @IdClass(value = TicketProductoId.class)
 public class TicketProducto implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

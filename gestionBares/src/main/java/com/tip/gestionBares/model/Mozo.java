@@ -1,7 +1,6 @@
 package com.tip.gestionBares.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +11,9 @@ import javax.persistence.Table;
 @Entity(name="Mozo")
 @Table(name="mozo")
 public class Mozo implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	//El mozo tiene nombre, apellido y id.
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -69,6 +66,4 @@ public class Mozo implements Serializable{
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	
-	
 }

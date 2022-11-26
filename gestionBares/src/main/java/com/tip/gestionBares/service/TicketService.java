@@ -2,10 +2,8 @@ package com.tip.gestionBares.service;
 
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
 import com.tip.gestionBares.model.Ticket;
@@ -27,5 +25,4 @@ public interface TicketService {
 	public TicketDto deleteTicketProducto(Long idTicket, Long idProducto);
 	public void updateMesa(Long idTicket, Long idMesa);
 	public void cancelarTicket(Long idTicket, Long idMesa);
-	public Page<Ticket> ticketsNoCancelados(Page<Ticket> tickets);
 }

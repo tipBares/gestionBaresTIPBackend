@@ -61,6 +61,4 @@ public class TicketProductoDto {
 	public void setPrecioProducto(Double precioProducto) {
 		this.precioProducto = precioProducto;
 	}
-	
-	
 }
