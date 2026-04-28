@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.tip.gestionBares.model.Mesa;
 import com.tip.gestionBares.model.Mozo;
 import com.tip.gestionBares.model.Ticket;
+import com.tip.gestionBares.model.enums.EstadoTicket;
 
 public class TicketDto {
 
@@ -25,6 +26,7 @@ public class TicketDto {
 	private Integer descuento;
 	private Boolean enProceso;
 	private Boolean cancelado;
+	private EstadoTicket estado;
 
 	public TicketDto(String nombreBar, String direccionBar) {
 		super();
@@ -50,6 +52,7 @@ public class TicketDto {
 			this.importeFinal = ticket.getImporteFinal();
 			this.descuento = ticket.getDescuento();
 			this.mesa = ticket.getMesa();
+			this.estado =ticket.getEstado();
 	}
 	
 	public List<TicketProductoDto> getTicketProductosDto() {
@@ -173,4 +176,8 @@ public class TicketDto {
 	public void setImporteFinal(Double importeFinal) {
 		this.importeFinal = importeFinal;
 	}
+
+	public EstadoTicket getEstado() { return estado; }
+
+	public void setEstado(EstadoTicket estado) { this.estado = estado; }
 }

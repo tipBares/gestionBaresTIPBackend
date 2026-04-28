@@ -5,20 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tip.gestionBares.model.enums.EstadoTicket;
 
 @Entity(name="Ticket")
 @Table(name="ticket")
@@ -78,6 +68,10 @@ public class Ticket implements Serializable{
 	
 	@Column(name = "cancelado")
 	private Boolean cancelado;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "estado")
+	private EstadoTicket estado = EstadoTicket.PENDIENTE;
 	
 	public Ticket() {
 		super();
@@ -90,6 +84,7 @@ public class Ticket implements Serializable{
 		this.nroTicket = count.incrementAndGet();
 		this.metodoDePago = "Efectivo";
 		this.cancelado = false;
+		this.estado = EstadoTicket.PENDIENTE;
 	}
 
 	public Boolean getCancelado() {
@@ -211,5 +206,9 @@ public class Ticket implements Serializable{
 	public void setImporteFinal(Double importeFinal) {
 		this.importeFinal = importeFinal;
 	}
+
+	public EstadoTicket getEstado() { return estado; }
+
+	public void setEstado(EstadoTicket estado) { this.estado = estado; }
 	
 }

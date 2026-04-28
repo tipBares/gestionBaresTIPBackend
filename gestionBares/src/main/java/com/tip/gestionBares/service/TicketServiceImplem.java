@@ -1,10 +1,9 @@
 package com.tip.gestionBares.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import com.tip.gestionBares.model.enums.EstadoTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -213,5 +212,33 @@ public class TicketServiceImplem implements TicketService{
 		this.mesaRepository.saveAndFlush(mesa);
 		this.ticketRepository.saveAndFlush(ticket);
 	}
-	
+
+	@Override
+	public TicketDto actualizarEstado(Long id, EstadoTicket nuevoEstado) {
+		Ticket ticket = this.ticketRepository.findById(id).orElse(null);
+		if (ticket != null) {
+			ticket.setEstado(nuevoEstado);
+			this.ticketRepository.save(ticket);
+			return new TicketDto(ticket);
+		}
+		return null;
+	}
+
+	@Override
+	public List<TicketDto> findByEstado(EstadoTicket estado) {
+		List<Ticket> tickets = this.ticketRepository.findByEstado(estado);
+		List<TicketDto> ticketsDto = new ArrayList<>();
+		if(tickets != null) {
+			tickets.forEach(p -> ticketsDto.add(new TicketDto(p)));
+		}
+		return ticketsDto;
+	}
+
+	@Override
+	public List<TicketDto> getTicketsCocina() {
+		List<EstadoTicket> estadosCocina = Arrays.asList(EstadoTicket.PENDIENTE, EstadoTicket.PREPARANDO);
+		List<Ticket> tickets = ticketRepository.findByEstadoIn(estadosCocina);
+		return tickets.stream().map(TicketDto::new).collect(Collectors.toList());
+	}
+
 }

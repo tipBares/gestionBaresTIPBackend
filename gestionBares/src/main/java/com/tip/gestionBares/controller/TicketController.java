@@ -2,6 +2,8 @@ package com.tip.gestionBares.controller;
 
 import java.util.Date;
 import java.util.List;
+
+import com.tip.gestionBares.model.enums.EstadoTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
@@ -9,16 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import com.tip.gestionBares.dto.TicketDto;
 import com.tip.gestionBares.dto.TicketProductoDto;
@@ -62,7 +55,6 @@ public class TicketController {
 		}
 		
 	}
-	
 
 	@GetMapping("{date}/{pag}")
     public ResponseEntity<Page<Ticket>> findBydate(
@@ -167,6 +159,28 @@ public class TicketController {
 	ResponseEntity<Void> cancelarTicket(@PathVariable(value = "idTicket") Long idTicket, @PathVariable(value = "idMesa") Long idMesa) throws NotFoundException {
 		this.ticketService.cancelarTicket(idTicket, idMesa);
 		return null;
+	}
+
+	@PatchMapping("/actualizar-estado/{id}")
+	public ResponseEntity<TicketDto> actualizarEstado(@PathVariable Long id, @RequestBody String nuevoEstado) throws NotFoundException {
+		EstadoTicket estado = EstadoTicket.valueOf(nuevoEstado.toUpperCase().replace("\"", ""));
+		TicketDto actualizado = ticketService.actualizarEstado(id, estado);
+		return new ResponseEntity<TicketDto>(actualizado, HttpStatus.OK);
+	}
+
+	@GetMapping("/estado/{estado}")
+	public ResponseEntity<List<TicketDto>> findByEstado(@PathVariable EstadoTicket estado) {
+		List<TicketDto> tickets = this.ticketService.findByEstado(estado);
+		if(tickets.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
+
+	@GetMapping("/cocina")
+	public ResponseEntity<List<TicketDto>> getTicketsCocina() {
+		List<TicketDto> ticketsDto = this.ticketService.getTicketsCocina();
+		return new ResponseEntity<List<TicketDto>>(ticketsDto, HttpStatus.OK);
 	}
 	
 }
